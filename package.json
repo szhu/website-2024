@@ -6,6 +6,9 @@
     "lint": "next lint",
     "start": "next start"
   },
+  "resolutions": {
+    "string-width": "^4"
+  },
   "dependencies": {
     "next": "14.1.0",
     "react": "^18",
