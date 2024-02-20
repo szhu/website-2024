@@ -1,0 +1,12 @@
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-css-modules"],
+  "ignoreFiles": "!**/*.css",
+  "rules": {
+    "selector-class-pattern": [
+      "^[a-z]+([A-Z][a-z0-9]+)*$",
+      {
+        "message": "Class selectors must be in camelCase format."
+      }
+    ]
+  }
+}
