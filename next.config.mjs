@@ -1,6 +1,10 @@
 const next = {
   /** @type {import('next').NextConfig} */
-  config: {},
+  config: {
+    compiler: {
+      styledComponents: true,
+    },
+  },
 };
 
 export default next.config;
