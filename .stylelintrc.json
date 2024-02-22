@@ -1,0 +1,5 @@
+{
+  "customSyntax": "postcss-styled-syntax",
+  "extends": ["stylelint-config-standard"],
+  "ignoreFiles": "!**/*.tsx"
+}
