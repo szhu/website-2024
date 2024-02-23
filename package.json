@@ -5,6 +5,7 @@
     "dev": "lsof -t -i:12024 -sTCP:LISTEN | xargs kill -9; PORT=12024 next dev",
     "lint": "prettier --check . && stylelint . && tsc && eslint .",
     "lint-fix": "stylelint . --fix && eslint . --fix && prettier --write .",
+    "prepare": "husky",
     "start": "next start"
   },
   "resolutions": {
@@ -29,6 +30,8 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-unicorn": "^51.0.1",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
     "postcss-styled-syntax": "^0.6.4",
     "prettier": "~3.2.5",
     "prettier-plugin-organize-imports": "~3.2.4",

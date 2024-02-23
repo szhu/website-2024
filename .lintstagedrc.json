@@ -1,0 +1,6 @@
+{
+  "*.{css,tsx}": "yarn stylelint",
+  "*.{js,jsx,mjs,ts,tsx,md,json}": "yarn prettier --write",
+  "*.{js,jsx,mjs,ts,tsx}": "yarn eslint",
+  "*.{ts,tsx}": "sh -c 'yarn tsc'"
+}
