@@ -197,8 +197,36 @@
       "off"
       // Why: Duplicate of @typescript-eslint/no-unused-vars.
     ],
+    "padding-line-between-statements": [
+      "warn",
+      // After break, continue, return, and throw statements:
+      { "blankLine": "always", "next": "*", "prev": "break" },
+      { "blankLine": "always", "next": "*", "prev": "continue" },
+      { "blankLine": "always", "next": "*", "prev": "return" },
+      { "blankLine": "always", "next": "*", "prev": "throw" },
+
+      // Before and after export statements:
+      { "blankLine": "always", "next": "export", "prev": "*" },
+      { "blankLine": "always", "next": "*", "prev": "export" },
+
+      // After import statements but not between them:
+      { "blankLine": "always", "next": "*", "prev": "import" },
+      { "blankLine": "never", "next": "import", "prev": "import" },
+
+      // Before and after function declarations:
+      { "blankLine": "always", "next": "function", "prev": "*" },
+      { "blankLine": "always", "next": "*", "prev": "function" },
+
+      // Before and after class declarations:
+      { "blankLine": "always", "next": "class", "prev": "*" },
+      { "blankLine": "always", "next": "*", "prev": "class" }
+    ],
     "prefer-smart-quotes/prefer": ["error", "all"],
     "react/no-unknown-property": [
+      "off"
+      // Why: Duplicate of a check performed by tsc.
+    ],
+    "react/prop-types": [
       "off"
       // Why: Duplicate of a check performed by tsc.
     ],
