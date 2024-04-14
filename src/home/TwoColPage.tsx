@@ -15,7 +15,7 @@ const TwoColPage: React.FC<{
   const Right = PagesById[props.right];
 
   return (
-    <div className="flex h-dvh flex-col overflow-y-hidden">
+    <div className="flex h-dvh flex-col md:overflow-y-hidden">
       <header className="contents">
         <TopBar />
       </header>
@@ -25,7 +25,7 @@ const TwoColPage: React.FC<{
         <Right />
       </main>
 
-      <footer className="flex flex-row gap-2 border-t-1 border-gray-300 bg-gray-200 p-2 shadow-sm dark:border-gray-700 dark:bg-gray-800" />
+      <footer className="sticky bottom-0 flex flex-row gap-2 border-t-1 border-gray-300 bg-gray-200 p-2 shadow-sm dark:border-gray-700 dark:bg-gray-800" />
     </div>
   );
 };
