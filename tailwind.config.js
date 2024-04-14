@@ -3,7 +3,14 @@
 export default {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
-    extend: {},
+    extend: {
+      borderWidth: {
+        1: "1px",
+      },
+      listStyleType: {
+        bullet: `'• '`,
+      },
+    },
   },
   plugins: [],
 };
