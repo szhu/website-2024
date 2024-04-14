@@ -8,6 +8,7 @@
     "plugin:consistent-default-export-name/fixed",
     "plugin:react-hooks/recommended",
     "plugin:react/recommended",
+    "plugin:tailwindcss/recommended",
     "plugin:unicorn/recommended",
     "prettier"
   ],

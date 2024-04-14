@@ -6,5 +6,5 @@ const RedText = styled.span`
 `;
 
 export default function page() {
-  return <RedText>Test!</RedText>;
+  return <RedText className="text-3xl">Test!</RedText>;
 }
