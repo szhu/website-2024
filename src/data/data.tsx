@@ -30,11 +30,12 @@ LBNL/NERSC	lbl.gov	Software Engineer Intern	2011-06	Summer 2011
   .map((line) => {
     const [organization, domain, role, order, when] = line.split("\t");
 
+    const NonEmptyString = zod.string().min(1);
     return {
-      organization: zod.string().min(1).parse(organization),
-      domain: zod.string().min(1).parse(domain),
-      role: zod.string().min(1).parse(role),
-      order: zod.string().min(1).parse(order),
-      when: zod.string().min(1).parse(when),
+      organization: NonEmptyString.parse(organization),
+      domain: NonEmptyString.parse(domain),
+      role: NonEmptyString.parse(role),
+      order: NonEmptyString.parse(order),
+      when: NonEmptyString.parse(when),
     };
   });
