@@ -1,4 +1,4 @@
-const HomeRoot: React.FC<unknown> = (props) => {
+const HomeRoot: React.FC<unknown> = () => {
   return (
     <div className="flex min-h-full flex-col items-center overflow-y-auto px-6 py-2 opacity-20 md:items-end">
       <div className="grow" />
