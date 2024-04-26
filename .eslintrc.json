@@ -41,8 +41,9 @@
       }
     ],
     "@typescript-eslint/no-misused-promises": [
-      "off"
+      "off",
       // Why: It's useful to have async functions as listeners.
+      {}
     ],
     "@typescript-eslint/no-unnecessary-condition": [
       "error",
@@ -233,6 +234,12 @@
     "react/react-in-jsx-scope": [
       "off"
       // Why: Next.js automatically imports React.
+    ],
+    "tailwindcss/classnames-order": [
+      "warn",
+      {
+        "callees": ["twMerge"]
+      }
     ],
     "unicorn/filename-case": [
       "error",

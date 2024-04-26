@@ -1,8 +1,17 @@
+import { twMerge } from "tailwind-merge";
 import { WorkHistory } from "../data/data";
 
-const WorkHistoryView: React.FC<unknown> = () => {
+const WorkHistoryView: React.FC<{
+  className?: string;
+}> = (props) => {
   return (
-    <div className="hidden flex-col gap-2 overflow-y-auto p-6 opacity-20 md:flex">
+    <div
+      className={twMerge(
+        "grow flex-col gap-2 overflow-y-auto p-6",
+        props.className,
+      )}
+    >
+      <div className="grow" />
       {WorkHistory.map((item, index) => {
         const href = `https://${item.domain}`;
 
@@ -21,6 +30,7 @@ const WorkHistoryView: React.FC<unknown> = () => {
           </div>
         );
       })}
+      <div className="grow" />
     </div>
   );
 };
