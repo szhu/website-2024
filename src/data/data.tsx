@@ -12,7 +12,7 @@ export const WorkHistory: WorkHistoryItem[] = `
 Mutable.ai	mutable.ai	Lead Frontend Engineer & Designer	2023-06	2023–
 OneSchema	oneschema.co	Software Engineer	2022-03	Spring 2022
 Contribution Labs	mintkudos.xyz	Software Engineer	2021-12	Winter 2021
-Nom	www.nommenu.com	Designer & Software Engineer	2021-06	2021–2022
+Nomify	www.nommenu.com	Designer & Software Engineer	2021-06	2021–2022
 Slab	slab.com	Software Engineer	2020-10	2020–2021
 Otter.ai	otter.ai	Software Engineer	2020-09	2020–2021
 Recividiz	www.recidiviz.org	Software Engineer	2020-03	Spring 2023
