@@ -27,7 +27,7 @@ const RootView: React.FC<{
   return (
     <div
       className={twMerge(
-        "min-h-full grow flex-col items-center overflow-y-auto px-6 py-2 md:items-end",
+        "min-h-full grow flex-col items-center overflow-y-auto px-6 py-2 sm:items-end",
         props.className,
       )}
       onClick={() => {
@@ -35,7 +35,7 @@ const RootView: React.FC<{
       }}
     >
       <div className="grow" />
-      <div className="flex min-w-[min(300px,100%)] flex-col gap-2">
+      <div className="flex min-w-[min(250px,100%)] flex-col gap-2">
         <h1 className="text-4xl font-bold">Sean Zhu</h1>
         <ul className="list-inside list-bullet text-2xl marker:mr-0">
           <li>design</li>

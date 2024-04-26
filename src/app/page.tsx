@@ -1,5 +1,5 @@
 import TwoColPage from "../home/TwoColPage";
 
 export default function page() {
-  return <TwoColPage left="root" right="blank" md="left" />;
+  return <TwoColPage left="root" right="blank" sm="left" />;
 }

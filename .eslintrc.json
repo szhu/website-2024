@@ -241,6 +241,12 @@
         "callees": ["twMerge"]
       }
     ],
+    "tailwindcss/no-custom-classname": [
+      "warn",
+      {
+        "callees": ["twMerge"]
+      }
+    ],
     "unicorn/filename-case": [
       "error",
       {
