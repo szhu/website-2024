@@ -1,10 +1,12 @@
 import { twMerge } from "tailwind-merge";
 import TopBar from "../app/TopBar";
-import HomeRoot from "./HomeRoot";
+import BlankView from "./BlankView";
+import RootView from "./RootView";
 import WorkHistoryView from "./WorkHistoryView";
 
 const PagesById = {
-  root: HomeRoot,
+  blank: BlankView,
+  root: RootView,
   workHistory: WorkHistoryView,
 };
 
