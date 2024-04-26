@@ -8,7 +8,10 @@ const WorkHistoryView: React.FC<{
 }> = (props) => {
   return (
     <div
-      className={twMerge("grow flex-col overflow-y-auto p-6", props.className)}
+      className={twMerge(
+        "grow flex-col overflow-y-auto px-4 py-6",
+        props.className,
+      )}
     >
       <div className="grow" />
       {WorkHistory.map((item, index) => {
@@ -18,12 +21,15 @@ const WorkHistoryView: React.FC<{
           <Link
             key={index}
             href="/"
-            className="rounded-md border-1 border-transparent p-2 transition-colors hover:border-amber-700/50 hover:bg-amber-200/20 dark:hover:border-amber-200/50"
+            className="rounded-md border-1 border-transparent px-4 py-2 transition-colors hover:border-amber-700/50 hover:bg-amber-200/20 dark:hover:border-amber-200/50"
           >
             <div>
               <span
                 className="group font-bold hover:underline"
-                onClick={() => window.open(href, "_blank")}
+                onClick={(event) => {
+                  event.preventDefault();
+                  window.open(href, "_blank");
+                }}
               >
                 {item.organization}
               </span>
