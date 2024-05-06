@@ -9,7 +9,7 @@ const WorkHistoryView: React.FC<{
   return (
     <div
       className={twMerge(
-        "grow animate-fade flex-col overflow-y-auto px-4 py-6",
+        "max-w-[450px] grow animate-fade flex-col overflow-y-auto px-4 py-6",
         props.className,
       )}
     >
