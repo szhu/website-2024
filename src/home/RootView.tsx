@@ -10,24 +10,31 @@ const RootLink: React.FC<Partial<React.ComponentProps<typeof Link>>> = (
   const isCurrent = pathname === props.href;
 
   const className = twMerge(
-    "ml-5 list-item list-outside rounded-md border-1 py-1",
+    "-mx-2 block rounded-md border-1 px-2 py-1",
     isCurrent
-      ? " border-amber-700/50 bg-amber-200/20 transition-[background-color,border-color] duration-100 dark:border-amber-200/50"
+      ? "border-amber-700/50 bg-amber-300/20 dark:border-amber-200/50"
       : "border-transparent",
+    !isCurrent &&
+      props.href != null &&
+      "hover:border-amber-700/10 hover:bg-amber-300/20 hover:dark:border-amber-200/10",
   );
 
   return props.href == null ? (
-    <span {...props} className={className} />
+    <div>
+      <span {...props} className={className} />
+    </div>
   ) : (
-    <Link
-      {...props}
-      href={props.href}
-      className={className}
-      onClick={(event) => {
-        event.stopPropagation();
-      }}
-      shallow
-    />
+    <div>
+      <Link
+        {...props}
+        href={props.href}
+        className={className}
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+        shallow
+      />
+    </div>
   );
 };
 
@@ -48,7 +55,7 @@ const RootView: React.FC<{
     >
       <div className="grow" />
       <div className="flex w-[250px] max-w-full flex-col gap-2">
-        <h1 className="text-4xl font-bold">Sean Zhu</h1>
+        <h1 className="text-4xl font-bold">SiteTitle</h1>
         <ul className="list-inside list-bullet text-2xl marker:mr-0">
           <RootLink>design</RootLink>
           <RootLink>engineering</RootLink>

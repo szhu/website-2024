@@ -29,7 +29,7 @@ const TwoColPage: React.FC<{
 
       <main
         className={twMerge(
-          "grow bg-white transition-colors duration-1000 dark:bg-gray-900",
+          "grow bg-white dark:bg-black",
           "flex  flex-col",
           "sm:grid sm:grid-cols-2 sm:overflow-y-hidden",
         )}
@@ -46,7 +46,7 @@ const TwoColPage: React.FC<{
         />
       </main>
 
-      <footer className="sticky bottom-0 flex flex-row gap-2 border-t-1 border-gray-300 bg-gray-200 p-2 shadow-sm transition-colors duration-1000 dark:border-gray-700 dark:bg-gray-800" />
+      <footer className="sticky bottom-0 flex flex-row gap-2 border-t-1 border-gray-300 bg-white p-2 dark:border-gray-700 dark:bg-black" />
     </div>
   );
 };
