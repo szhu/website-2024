@@ -1,4 +1,4 @@
-export default async function getDataUrlFromFile(file: File) {
+export default async function getDataUrlFromFile(file: File | Blob) {
   const reader = new FileReader();
   const dataUrl = await new Promise<string>((resolve) => {
     reader.addEventListener("load", () => {

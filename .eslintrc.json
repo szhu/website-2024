@@ -270,7 +270,8 @@
           "params": true,
           "prev": true,
           "props": true,
-          "ref": true
+          "ref": true,
+          "src": true
         },
         "ignore": ["Refs?($|[A-Z])", "Props?($|[A-Z])"]
       }
