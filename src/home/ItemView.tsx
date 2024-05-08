@@ -209,157 +209,160 @@ const ItemView: React.FC<{
   return (
     <div
       className={twMerge(
-        "flex max-w-[450px] grow flex-col overflow-y-auto px-4 py-6 [&>*]:shrink-0",
+        "flex grow flex-col overflow-y-auto px-4 py-6 sm:items-end [&>*]:shrink-0",
         didItemIdChange && "animate-fade",
         props.className,
       )}
     >
       <div className="grow" />
-      <div>{params.itemId}</div>
+      <div className="w-[700px] max-w-full">
+        <div>{params.itemId}</div>
 
-      <ContentEditable
-        className="min-h-40 border-collapse rounded-md border-1 border-black p-1 dark:border-white [&>p+p]:border-t-0 [&>p:first-child]:border-t-0 [&>p:has(>img)]:px-6  [&>p:last-child]:border-b-0 [&>p>img]:mx-auto [&>p>img]:max-h-72 [&>p>img]:px-1 [&>p]:border-y-1 [&>p]:border-gray-500 [&>p]:py-2"
-        onClick={(event) => {
-          if (event.target instanceof HTMLImageElement) {
-            // Select the image if clicked
-            const selection = window.getSelection();
-            if (!selection) return;
+        <ContentEditable
+          className="min-h-40 border-collapse rounded-md border-1 border-black p-1 dark:border-white [&>p+p]:border-t-0 [&>p:first-child]:border-t-0 [&>p:has(>img)]:px-6  [&>p:last-child]:border-b-0 [&>p>img]:mx-auto [&>p>img]:max-h-72 [&>p>img]:px-1 [&>p]:border-y-1 [&>p]:border-gray-500 [&>p]:py-2"
+          onClick={(event) => {
+            if (event.target instanceof HTMLImageElement) {
+              // Select the image if clicked
+              const selection = window.getSelection();
+              if (!selection) return;
 
-            const range = document.createRange();
-            range.selectNode(event.target);
+              const range = document.createRange();
+              range.selectNode(event.target);
 
-            selection.removeAllRanges();
-            selection.addRange(range);
-          }
-        }}
-        onUpdate={(target) => {
-          {
-            // Remove all style and class attributes
-            const els = target.querySelectorAll("[style],[class]");
-            for (const element of els) {
-              element.removeAttribute("style");
-              element.removeAttribute("class");
+              selection.removeAllRanges();
+              selection.addRange(range);
             }
-          }
-
-          {
-            // Unwrap all <div> and <span>
-            const els = target.querySelectorAll(":not(p,img)");
-            for (const element of els) {
-              unwrapElement(element);
-            }
-          }
-
-          {
-            // Unnest all <img>
-            const els = target.querySelectorAll(":scope > * > img");
-            for (const element of els) {
-              if (
-                !element.parentElement ||
-                element.parentElement.childNodes.length <= 1
-              ) {
-                continue;
+          }}
+          onUpdate={(target) => {
+            {
+              // Remove all style and class attributes
+              const els = target.querySelectorAll("[style],[class]");
+              for (const element of els) {
+                element.removeAttribute("style");
+                element.removeAttribute("class");
               }
+            }
 
-              unnestChild(element, (img) => {
-                const p = document.createElement("p");
-                p.append(img);
-                return p;
+            {
+              // Unwrap all <div> and <span>
+              const els = target.querySelectorAll(":not(p,img)");
+              for (const element of els) {
+                unwrapElement(element);
+              }
+            }
+
+            {
+              // Unnest all <img>
+              const els = target.querySelectorAll(":scope > * > img");
+              for (const element of els) {
+                if (
+                  !element.parentElement ||
+                  element.parentElement.childNodes.length <= 1
+                ) {
+                  continue;
+                }
+
+                unnestChild(element, (img) => {
+                  const p = document.createElement("p");
+                  p.append(img);
+                  return p;
+                });
+              }
+            }
+
+            {
+              // Inline all img srcs
+              const els = target.querySelectorAll(
+                `img[src^='http:'],img[src^='https:']`,
+              );
+              void Promise.resolve().then(async () => {
+                for (const element of els) {
+                  if (!(element instanceof HTMLImageElement)) continue;
+
+                  const src = element.getAttribute("src");
+                  if (!src) continue;
+
+                  // const dataUrl = await window.fetch(src)
+                  //   .then((res) => res.blob())
+                  //   .then(getDataUrlFromFile);
+
+                  const response = await window.fetch(src);
+                  const blob = await response.blob();
+                  const dataUrl = await getDataUrlFromFile(blob);
+
+                  element.src = dataUrl;
+                }
               });
             }
-          }
 
-          {
-            // Inline all img srcs
-            const els = target.querySelectorAll(
-              `img[src^='http:'],img[src^='https:']`,
-            );
-            void Promise.resolve().then(async () => {
-              for (const element of els) {
-                if (!(element instanceof HTMLImageElement)) continue;
+            {
+              // Wrap all outer non-<p> in <p>
+              const children = [...target.childNodes];
+              for (const child of children) {
+                if (child instanceof HTMLParagraphElement) continue;
 
-                const src = element.getAttribute("src");
-                if (!src) continue;
-
-                // const dataUrl = await window.fetch(src)
-                //   .then((res) => res.blob())
-                //   .then(getDataUrlFromFile);
-
-                const response = await window.fetch(src);
-                const blob = await response.blob();
-                const dataUrl = await getDataUrlFromFile(blob);
-
-                element.src = dataUrl;
+                const p = document.createElement("p");
+                child.replaceWith(p);
+                p.append(child);
               }
-            });
-          }
-
-          {
-            // Wrap all outer non-<p> in <p>
-            const children = [...target.childNodes];
-            for (const child of children) {
-              if (child instanceof HTMLParagraphElement) continue;
-
-              const p = document.createElement("p");
-              child.replaceWith(p);
-              p.append(child);
             }
-          }
 
-          {
-            // For every empty <p>, add a <br> if the cursor is inside it;
-            // otherwise, remove it.
-            const els = target.querySelectorAll("p");
-            for (const element of els) {
-              const isEmpty = element.childNodes.length === 0;
-              const hasOnlySingleBr =
-                element.childNodes.length === 1 &&
-                element.firstChild?.nodeName === "BR";
+            {
+              // For every empty <p>, add a <br> if the cursor is inside it;
+              // otherwise, remove it.
+              const els = target.querySelectorAll("p");
+              for (const element of els) {
+                const isEmpty = element.childNodes.length === 0;
+                const hasOnlySingleBr =
+                  element.childNodes.length === 1 &&
+                  element.firstChild?.nodeName === "BR";
 
-              if (isEmpty || hasOnlySingleBr) {
-                const selection = window.getSelection();
-                if (!selection) return;
+                if (isEmpty || hasOnlySingleBr) {
+                  const selection = window.getSelection();
+                  if (!selection) return;
 
-                if (element.contains(selection.anchorNode)) {
-                  if (isEmpty) {
-                    element.append(document.createElement("br"));
+                  if (element.contains(selection.anchorNode)) {
+                    if (isEmpty) {
+                      element.append(document.createElement("br"));
+                    }
+                  } else {
+                    element.remove();
                   }
-                } else {
-                  element.remove();
                 }
               }
             }
-          }
 
-          {
-            // If there is no content, add an empty <p>
-            if (target.childElementCount === 0) {
-              const p = document.createElement("p");
-              p.append(document.createElement("br"));
-              target.append(p);
+            {
+              // If there is no content, add an empty <p>
+              if (target.childElementCount === 0) {
+                const p = document.createElement("p");
+                p.append(document.createElement("br"));
+                target.append(p);
+              }
             }
-          }
 
-          htmlRef.current = target.innerHTML;
-        }}
-      />
+            htmlRef.current = target.innerHTML;
+          }}
+        />
 
-      <button
-        onClick={async () => {
-          if (htmlRef.current == null) return;
+        <button
+          onClick={async () => {
+            if (htmlRef.current == null) return;
 
-          await navigator.clipboard.writeText(htmlRef.current);
-          setCopiedAt(new Date());
-        }}
-      >
-        Copy HTML{" "}
-        <span
-          key={copiedAt?.toISOString()}
-          className={copiedAt ? "animate-fade" : "invisible"}
+            await navigator.clipboard.writeText(htmlRef.current);
+            setCopiedAt(new Date());
+          }}
         >
-          ✔
-        </span>
-      </button>
+          Copy HTML{" "}
+          <span
+            key={copiedAt?.toISOString()}
+            className={copiedAt ? "animate-fade" : "invisible"}
+          >
+            ✔
+          </span>
+        </button>
+      </div>
+
       <div className="grow" />
     </div>
   );
