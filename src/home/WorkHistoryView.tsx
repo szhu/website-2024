@@ -1,42 +1,41 @@
-"use client";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { WorkHistory } from "../data/data";
+import PageLink from "./PageLink";
 
 const WorkHistoryView: React.FC<{
   className?: string;
 }> = (props) => {
+  const router = useRouter();
+
   return (
     <div
       className={twMerge(
         "max-w-[450px] grow flex-col overflow-y-auto px-4 py-6",
         props.className,
       )}
+      onClick={(event) => {
+        if (!(event.target instanceof Element)) return;
+
+        if (!event.target.closest("a")) {
+          router.push("/work");
+        }
+      }}
     >
       <div className="grow" />
       {WorkHistory.map((item, index) => {
-        const href = `https://${item.domain}`;
+        // const href = `https://${item.domain}`;
 
         return (
-          <Link
+          <PageLink
             key={index}
             href={"/work/" + item.id}
-            className="rounded-md border-1 border-transparent px-4 py-2 transition-[background-color,border-color] duration-100 hover:border-amber-700/50 hover:bg-amber-200/20 dark:hover:border-amber-200/50"
+            className="block rounded-md border-1 px-4 py-2"
           >
-            <div>
-              <span
-                className="font-bold hover:underline"
-                onClick={(event) => {
-                  event.preventDefault();
-                  window.open(href, "_blank");
-                }}
-              >
-                {item.organization}
-              </span>
-            </div>
+            <div className="font-bold">{item.organization}</div>
             <div>{item.role}</div>
             <div>{item.when}</div>
-          </Link>
+          </PageLink>
         );
       })}
       <div className="grow" />

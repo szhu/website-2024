@@ -267,6 +267,7 @@
       {
         "allowList": {
           "args": true,
+          "params": true,
           "prev": true,
           "props": true,
           "ref": true
