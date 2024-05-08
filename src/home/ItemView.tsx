@@ -111,6 +111,7 @@ function unwrapElement(element: Element) {
 }
 
 const ContentEditable: React.FC<{
+  editorRef: React.MutableRefObject<HTMLElement | null>;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
   onUpdate?: (target: HTMLElement) => void;
@@ -123,6 +124,7 @@ const ContentEditable: React.FC<{
     <div
       ref={(element) => {
         ref.current = element;
+        props.editorRef.current = element;
         if (element) {
           props.onUpdate?.(element);
         }
@@ -206,7 +208,7 @@ const ItemView: React.FC<{
   const didItemIdChange = //
     useDidPropChangeAcrossRoutes("ItemView.itemId", itemId);
 
-  const htmlRef = useRef<string>();
+  const editorRef = useRef<HTMLElement>(null);
 
   const [copiedAt, setCopiedAt] = useState<Date>();
 
@@ -224,6 +226,7 @@ const ItemView: React.FC<{
         <div>{itemId}</div>
 
         <ContentEditable
+          editorRef={editorRef}
           className="min-h-40 border-collapse rounded-md border-1 border-black p-1 dark:border-white [&>p+p]:border-t-0 [&>p:first-child]:border-t-0 [&>p:has(>img)]:px-6  [&>p:last-child]:border-b-0 [&>p>img]:mx-auto [&>p>img]:max-h-72 [&>p>img]:cursor-pointer [&>p>img]:px-1 [&>p]:border-y-1 [&>p]:border-gray-500 [&>p]:py-2"
           onClick={(event) => {
             if (event.target instanceof HTMLImageElement) {
@@ -345,16 +348,14 @@ const ItemView: React.FC<{
                 target.append(p);
               }
             }
-
-            htmlRef.current = target.innerHTML;
           }}
         />
 
         <button
           onClick={async () => {
-            if (htmlRef.current == null) return;
-
-            await navigator.clipboard.writeText(htmlRef.current);
+            await navigator.clipboard.writeText(
+              editorRef.current?.innerHTML ?? "",
+            );
             setCopiedAt(new Date());
           }}
         >
