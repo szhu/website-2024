@@ -58,8 +58,8 @@ const RootView: React.FC<{
         <h1 className="text-4xl font-bold">SiteTitle</h1>
         <ul className="list-inside list-bullet text-2xl marker:mr-0">
           <RootLink>design</RootLink>
-          <RootLink>engineering</RootLink>
-          <RootLink>physical</RootLink>
+          <RootLink>code</RootLink>
+          <RootLink>hardware</RootLink>
           <RootLink>thoughts</RootLink>
           <RootLink>photography</RootLink>
           <RootLink

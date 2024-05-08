@@ -268,8 +268,10 @@
         "allowList": {
           "args": true,
           "prev": true,
-          "props": true
-        }
+          "props": true,
+          "ref": true
+        },
+        "ignore": ["Refs?($|[A-Z])", "Props?($|[A-Z])"]
       }
     ]
   }

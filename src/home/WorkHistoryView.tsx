@@ -9,7 +9,7 @@ const WorkHistoryView: React.FC<{
   return (
     <div
       className={twMerge(
-        "max-w-[450px] grow animate-fade flex-col overflow-y-auto px-4 py-6",
+        "max-w-[450px] grow flex-col overflow-y-auto px-4 py-6",
         props.className,
       )}
     >
@@ -20,7 +20,7 @@ const WorkHistoryView: React.FC<{
         return (
           <Link
             key={index}
-            href="/"
+            href={"/work/" + item.id}
             className="rounded-md border-1 border-transparent px-4 py-2 transition-[background-color,border-color] duration-100 hover:border-amber-700/50 hover:bg-amber-200/20 dark:hover:border-amber-200/50"
           >
             <div>

@@ -1,22 +1,35 @@
+"use client";
 import { twMerge } from "tailwind-merge";
 import TopBar from "../app/TopBar";
+import { useDidPropChangeAcrossRoutes } from "../extends/next/TrackPropsAcrossRoutes";
 import BlankView from "./BlankView";
+import ItemView from "./ItemView";
 import RootView from "./RootView";
 import WorkHistoryView from "./WorkHistoryView";
 
-const PagesById = {
+const TwoColPagesById = {
   blank: BlankView,
   root: RootView,
   workHistory: WorkHistoryView,
+  item: ItemView,
 };
 
 const TwoColPage: React.FC<{
-  left: keyof typeof PagesById;
-  right: keyof typeof PagesById;
+  left: keyof typeof TwoColPagesById;
+  right: keyof typeof TwoColPagesById;
   sm: "left" | "right";
 }> = (props) => {
-  const Left = PagesById[props.left];
-  const Right = PagesById[props.right];
+  const Left = TwoColPagesById[props.left];
+  const Right = TwoColPagesById[props.right];
+
+  const didLeftChange = useDidPropChangeAcrossRoutes(
+    "TwoColPage.left",
+    props.left,
+  );
+  const didRightChange = useDidPropChangeAcrossRoutes(
+    "TwoColPage.right",
+    props.right,
+  );
 
   const alwaysShownClassName = "flex";
   const mdShownClassName = "hidden sm:flex";
@@ -35,14 +48,16 @@ const TwoColPage: React.FC<{
         )}
       >
         <Left
-          className={
-            props.sm === "left" ? alwaysShownClassName : mdShownClassName
-          }
+          className={twMerge(
+            props.sm === "left" ? alwaysShownClassName : mdShownClassName,
+            didLeftChange ? "animate-fade" : "",
+          )}
         />
         <Right
-          className={
-            props.sm === "right" ? alwaysShownClassName : mdShownClassName
-          }
+          className={twMerge(
+            props.sm === "right" ? alwaysShownClassName : mdShownClassName,
+            didRightChange ? "animate-fade" : "",
+          )}
         />
       </main>
 

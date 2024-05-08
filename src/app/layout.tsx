@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { TrackPropsAcrossRoutesProvider } from "../extends/next/TrackPropsAcrossRoutes";
 import StyledComponentsRegistry from "../extends/styled-components/StyledComponentsRegistry";
 import "./globals.css";
 
@@ -16,9 +17,11 @@ export default function layout({
 }>) {
   return (
     <StyledComponentsRegistry>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
-      </html>
+      <TrackPropsAcrossRoutesProvider>
+        <html lang="en">
+          <body className={inter.className}>{children}</body>
+        </html>
+      </TrackPropsAcrossRoutesProvider>
     </StyledComponentsRegistry>
   );
 }
