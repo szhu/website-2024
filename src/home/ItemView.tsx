@@ -1,7 +1,7 @@
 "use client";
-import { useParams } from "next/navigation";
 import { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { useItemId } from "../app/TwoColRouter";
 import getDataUrlFromFile from "../extends/file/getDataUrlFromFile";
 import { useDidPropChangeAcrossRoutes } from "../extends/next/TrackPropsAcrossRoutes";
 
@@ -154,7 +154,6 @@ const ContentEditable: React.FC<{
         const element = event.currentTarget;
 
         event.preventDefault();
-        console.log(event);
 
         const files = event.dataTransfer.files;
         for (const file of files) {
@@ -197,10 +196,10 @@ const ContentEditable: React.FC<{
 const ItemView: React.FC<{
   className?: string;
 }> = (props) => {
-  const params = useParams<{ itemId: string }>();
+  const itemId = useItemId();
 
   const didItemIdChange = //
-    useDidPropChangeAcrossRoutes("ItemView.itemId", params.itemId);
+    useDidPropChangeAcrossRoutes("ItemView.itemId", itemId);
 
   const htmlRef = useRef<string>();
 
@@ -208,6 +207,7 @@ const ItemView: React.FC<{
 
   return (
     <div
+      key={itemId}
       className={twMerge(
         "flex grow flex-col overflow-y-auto px-4 py-6 sm:items-end [&>*]:shrink-0",
         didItemIdChange && "animate-fade",
@@ -216,7 +216,7 @@ const ItemView: React.FC<{
     >
       <div className="grow" />
       <div className="w-[700px] max-w-full">
-        <div>{params.itemId}</div>
+        <div>{itemId}</div>
 
         <ContentEditable
           className="min-h-40 border-collapse rounded-md border-1 border-black p-1 dark:border-white [&>p+p]:border-t-0 [&>p:first-child]:border-t-0 [&>p:has(>img)]:px-6  [&>p:last-child]:border-b-0 [&>p>img]:mx-auto [&>p>img]:max-h-72 [&>p>img]:px-1 [&>p]:border-y-1 [&>p]:border-gray-500 [&>p]:py-2"

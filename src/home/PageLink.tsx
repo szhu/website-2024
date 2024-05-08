@@ -10,8 +10,9 @@ const PageLink: React.FC<Partial<React.ComponentProps<typeof Link>>> = (
   const isCurrent = pathname === props.href;
 
   const className = twMerge(
+    "transition-colors duration-200",
     isCurrent
-      ? "border-amber-700/50 bg-amber-300/20 dark:border-amber-200/50"
+      ? "border-amber-700/50 dark:border-amber-200/50 [*:not(:has([data-page-link]:not(&):hover))>&]:bg-amber-300/20"
       : "border-transparent",
     !isCurrent &&
       props.href != null &&
@@ -20,13 +21,9 @@ const PageLink: React.FC<Partial<React.ComponentProps<typeof Link>>> = (
   );
 
   return props.href == null ? (
-    <div>
-      <span {...props} className={className} />
-    </div>
+    <span {...props} className={className} />
   ) : (
-    <div>
-      <Link {...props} href={props.href} className={className} />
-    </div>
+    <Link {...props} href={props.href} className={className} data-page-link />
   );
 };
 

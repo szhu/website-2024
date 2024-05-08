@@ -22,10 +22,8 @@ const TwoColPage: React.FC<{
   const Left = TwoColPagesById[props.left];
   const Right = TwoColPagesById[props.right];
 
-  const didLeftChange = //
-    useDidPropChangeAcrossRoutes("TwoColPage.left", props.left);
-  const didRightChange = //
-    useDidPropChangeAcrossRoutes("TwoColPage.right", props.right);
+  const didLeftChange = useDidPropChangeAcrossRoutes("left", props.left);
+  const didRightChange = useDidPropChangeAcrossRoutes("right", props.right);
 
   const alwaysShownClassName = "flex";
   const mdShownClassName = "hidden sm:flex";
