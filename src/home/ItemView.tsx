@@ -5,8 +5,10 @@ import { useItemId } from "../app/TwoColRouter";
 import getDataUrlFromFile from "../extends/file/getDataUrlFromFile";
 import { useDidPropChangeAcrossRoutes } from "../extends/next/TrackPropsAcrossRoutes";
 
-function insertNodeAt(range: Range, node: Node) {
-  range.insertNode(node);
+function insertNodesAt(range: Range, nodes: Node[]) {
+  for (const node of nodes) {
+    range.insertNode(node);
+  }
   range.setStartAfter(range.startContainer);
 }
 
@@ -155,6 +157,7 @@ const ContentEditable: React.FC<{
 
         event.preventDefault();
 
+        const imgsToInsert: HTMLImageElement[] = [];
         const files = event.dataTransfer.files;
         for (const file of files) {
           if (!file.type.startsWith("image/")) continue;
@@ -164,25 +167,27 @@ const ContentEditable: React.FC<{
           const img = document.createElement("img");
           img.src = dataUrl;
 
-          element.focus();
-          const selection = window.getSelection();
-          if (!selection) {
-            console.warn("No selection");
-            return;
-          }
-
-          selection.collapseToEnd();
-          const range = selection.getRangeAt(0);
-          if (
-            !element.contains(range.startContainer) ||
-            !element.contains(range.endContainer)
-          ) {
-            console.warn("Selection is outside of container");
-            return;
-          }
-
-          insertNodeAt(range, img);
+          imgsToInsert.push(img);
         }
+
+        element.focus();
+        const selection = window.getSelection();
+        if (!selection) {
+          console.warn("No selection");
+          return;
+        }
+
+        selection.collapseToEnd();
+        const range = selection.getRangeAt(0);
+        if (
+          !element.contains(range.startContainer) ||
+          !element.contains(range.endContainer)
+        ) {
+          console.warn("Selection is outside of container");
+          return;
+        }
+
+        insertNodesAt(range, imgsToInsert);
 
         props.onUpdate?.(element);
       }}
@@ -219,7 +224,7 @@ const ItemView: React.FC<{
         <div>{itemId}</div>
 
         <ContentEditable
-          className="min-h-40 border-collapse rounded-md border-1 border-black p-1 dark:border-white [&>p+p]:border-t-0 [&>p:first-child]:border-t-0 [&>p:has(>img)]:px-6  [&>p:last-child]:border-b-0 [&>p>img]:mx-auto [&>p>img]:max-h-72 [&>p>img]:px-1 [&>p]:border-y-1 [&>p]:border-gray-500 [&>p]:py-2"
+          className="min-h-40 border-collapse rounded-md border-1 border-black p-1 dark:border-white [&>p+p]:border-t-0 [&>p:first-child]:border-t-0 [&>p:has(>img)]:px-6  [&>p:last-child]:border-b-0 [&>p>img]:mx-auto [&>p>img]:max-h-72 [&>p>img]:cursor-pointer [&>p>img]:px-1 [&>p]:border-y-1 [&>p]:border-gray-500 [&>p]:py-2"
           onClick={(event) => {
             if (event.target instanceof HTMLImageElement) {
               // Select the image if clicked
