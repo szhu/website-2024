@@ -36,7 +36,7 @@ const TwoColPage: React.FC<{
 
       <main
         className={twMerge(
-          "grow bg-white dark:bg-black",
+          "grow",
           "flex  flex-col",
           "sm:grid sm:grid-cols-2 sm:overflow-y-hidden",
         )}

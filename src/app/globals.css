@@ -9,11 +9,12 @@ body {
 
 html {
   hyphens: auto;
+  background-color: white;
 }
 
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
-    background: rgb(31 41 55);
+    background-color: black;
   }
 }
