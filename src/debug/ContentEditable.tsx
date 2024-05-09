@@ -16,6 +16,7 @@ function useIsHydrated() {
 const ContentEditable: React.FC<{
   editorRef: React.MutableRefObject<HTMLElement | null>;
   className?: string;
+  children?: React.ReactNode;
   onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
   onUpdate?: (target: HTMLElement) => void;
 }> = (props) => {
@@ -34,6 +35,7 @@ const ContentEditable: React.FC<{
         }
       }}
       contentEditable={isHydrated}
+      suppressContentEditableWarning
       className={twMerge(
         "relative",
         isDraggedOver &&
@@ -100,7 +102,9 @@ const ContentEditable: React.FC<{
       onInput={(event) => {
         props.onUpdate?.(event.currentTarget);
       }}
-    />
+    >
+      {props.children}
+    </div>
   );
 };
 

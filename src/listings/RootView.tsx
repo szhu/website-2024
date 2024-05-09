@@ -13,7 +13,7 @@ const RootView: React.FC<{
   return (
     <div
       className={twMerge(
-        "min-h-full grow flex-col items-center overflow-y-auto px-6 py-2 sm:items-end",
+        "min-h-full grow flex-col items-center overflow-y-auto px-6 py-2",
         props.className,
       )}
       onClick={(event) => {

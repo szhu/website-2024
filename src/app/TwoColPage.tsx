@@ -46,6 +46,7 @@ const TwoColPage: React.FC<{
           className={twMerge(
             props.sm === "left" ? alwaysShownClassName : smShownClassName,
             didLeftChange ? "animate-fade" : "",
+            "sm:items-end",
           )}
         >
           {props.page}

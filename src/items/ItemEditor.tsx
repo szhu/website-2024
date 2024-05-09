@@ -1,9 +1,12 @@
 import { useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
 import ContentEditable from "../debug/ContentEditable";
 import getDataUrlFromFile from "../extends/file/getDataUrlFromFile";
 import { unnestChild, unwrapElement } from "./DomManipulation";
 
-export default function ItemEditor() {
+const ItemEditor: React.FC<{
+  children?: React.ReactNode;
+}> = (props) => {
   const editorRef = useRef<HTMLElement>(null);
   const [copiedAt, setCopiedAt] = useState<Date>();
 
@@ -11,7 +14,11 @@ export default function ItemEditor() {
     <>
       <ContentEditable
         editorRef={editorRef}
-        className="min-h-40 border-collapse whitespace-pre-wrap rounded-md border-1 border-black p-1 dark:border-white [&>p+p]:border-t-0 [&>p:first-child]:border-t-0 [&>p:has(>img)]:px-6  [&>p:last-child]:border-b-0 [&>p>img]:mx-auto [&>p>img]:max-h-72 [&>p>img]:cursor-pointer [&>p>img]:px-1 [&>p]:border-y-1 [&>p]:border-gray-500 [&>p]:py-2"
+        className={twMerge(
+          "min-h-40 border-collapse whitespace-pre-wrap rounded-md border-1 border-black p-1 dark:border-white",
+          "[&>p+p]:border-t-0 [&>p:first-child]:border-t-0 [&>p:last-child]:border-b-0 [&>p]:border-y-1 [&>p]:border-gray-500 [&>p]:py-2",
+          "[&>p:has(>img)]:px-6 [&>p>img]:mx-auto [&>p>img]:size-auto [&>p>img]:max-h-72 [&>p>img]:cursor-pointer [&>p>img]:px-1 [&>p]:border-y-1",
+        )}
         onClick={(event) => {
           if (event.target instanceof HTMLImageElement) {
             // Select the image if clicked
@@ -77,11 +84,15 @@ export default function ItemEditor() {
                 // const dataUrl = await window.fetch(src)
                 //   .then((res) => res.blob())
                 //   .then(getDataUrlFromFile);
-                const response = await window.fetch(src);
-                const blob = await response.blob();
-                const dataUrl = await getDataUrlFromFile(blob);
-
-                element.src = dataUrl;
+                try {
+                  const response = await window.fetch(src);
+                  const blob = await response.blob();
+                  const dataUrl = await getDataUrlFromFile(blob);
+                  element.src = dataUrl;
+                } catch (error) {
+                  console.warn(error);
+                  return;
+                }
               }
             });
           }
@@ -132,7 +143,9 @@ export default function ItemEditor() {
             }
           }
         }}
-      />
+      >
+        {props.children}
+      </ContentEditable>
 
       <button
         onClick={async () => {
@@ -156,7 +169,25 @@ export default function ItemEditor() {
             xhtml = xhtml.slice(ExpectedPrefix.length, -ExpectedSuffix.length);
           }
 
-          await navigator.clipboard.writeText(xhtml);
+          const ComponentPrefix = `
+/* eslint-disable @next/next/no-img-element */
+
+const page: React.FC<unknown> = () => {
+  return (
+    <>
+`;
+
+          const ComponentSuffix = `
+    </>
+  );
+};
+
+export default page;
+`;
+
+          await navigator.clipboard.writeText(
+            ComponentPrefix + xhtml + ComponentSuffix,
+          );
           setCopiedAt(new Date());
         }}
       >
@@ -170,4 +201,6 @@ export default function ItemEditor() {
       </button>
     </>
   );
-}
+};
+
+export default ItemEditor;
