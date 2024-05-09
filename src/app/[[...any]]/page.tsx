@@ -1,8 +1,6 @@
 import { notFound } from "next/navigation";
 
-const page: React.FC<{
-  children?: React.ReactNode;
-}> = () => {
+const page: React.FC<unknown> = () => {
   notFound();
 };
 
