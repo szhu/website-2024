@@ -22,10 +22,9 @@ const TopBar: React.FC<unknown> = () => {
   return (
     <div
       className={twMerge(
-        "transition-[opacity,visibility] delay-1000 duration-1000",
+        "sticky top-0 shrink-0 overflow-x-auto border-b-1 border-gray-300 bg-white/80 px-3 py-2 pt-3 backdrop-blur-sm transition-[opacity,visibility] duration-200 sm:delay-1000 sm:duration-1000 dark:border-gray-700 dark:bg-black/80",
         nav.isRoot && "invisible opacity-0",
         nav.isCategory && "sm:invisible sm:opacity-0",
-        "sticky top-0 shrink-0 overflow-x-auto border-b-1 border-gray-300 bg-white px-3 py-2 pt-3 dark:border-gray-700 dark:bg-black",
       )}
     >
       <div className="mx-auto flex max-w-[1500px] flex-row items-center gap-4">
