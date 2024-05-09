@@ -136,9 +136,27 @@ export default function ItemEditor() {
 
       <button
         onClick={async () => {
-          await navigator.clipboard.writeText(
-            editorRef.current?.innerHTML ?? "",
-          );
+          if (!editorRef.current) return;
+
+          const fragment = document.createElement("body");
+          for (const child of editorRef.current.childNodes) {
+            fragment.append(child.cloneNode(true));
+          }
+
+          const serializer = new XMLSerializer();
+          let xhtml = serializer.serializeToString(fragment);
+
+          const ExpectedPrefix = `<body xmlns="http://www.w3.org/1999/xhtml">`;
+          const ExpectedSuffix = `</body>`;
+
+          if (
+            xhtml.startsWith(ExpectedPrefix) &&
+            xhtml.endsWith(ExpectedSuffix)
+          ) {
+            xhtml = xhtml.slice(ExpectedPrefix.length, -ExpectedSuffix.length);
+          }
+
+          await navigator.clipboard.writeText(xhtml);
           setCopiedAt(new Date());
         }}
       >
