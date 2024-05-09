@@ -1,36 +1,35 @@
 import Link from "next/link";
+import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 import Disabled from "../debug/Disabled";
 import CategoryData from "../listings/CategoryData";
 import SiteTitle from "../listings/SiteTitle";
 import { useNavContext } from "./NavContext";
 
+function getCategory(categoryId: keyof typeof CategoryData | undefined) {
+  return categoryId == null
+    ? undefined
+    : { ...CategoryData[categoryId], id: categoryId };
+}
+
 const TopBar: React.FC<unknown> = () => {
   const nav = useNavContext();
 
-  const category =
-    nav.categoryId == null
-      ? undefined
-      : { ...CategoryData[nav.categoryId], id: nav.categoryId };
+  const lastCategoryIdRef = useRef(nav.categoryId);
+  if (nav.categoryId != null) lastCategoryIdRef.current = nav.categoryId;
+  const category = getCategory(lastCategoryIdRef.current);
 
   return (
     <div
       className={twMerge(
-        "transition-colors duration-200",
-        nav.isRoot && "border-transparent",
-        nav.isCategory && "border-gray-300 sm:border-transparent",
-        "sticky top-0 shrink-0 overflow-x-auto border-b-1 bg-white px-3 py-2 pt-3 dark:border-gray-700 dark:bg-black",
+        "transition-[opacity,visibility] delay-1000 duration-1000",
+        nav.isRoot && "invisible opacity-0",
+        nav.isCategory && "sm:invisible sm:opacity-0",
+        "sticky top-0 shrink-0 overflow-x-auto border-b-1 border-gray-300 bg-white px-3 py-2 pt-3 dark:border-gray-700 dark:bg-black",
       )}
     >
       <div className="mx-auto flex max-w-[1500px] flex-row items-center gap-4">
-        <Link
-          href="/"
-          className={twMerge(
-            "font-bold",
-            nav.isRoot && "invisible",
-            nav.isCategory && "visible sm:invisible",
-          )}
-        >
+        <Link href="/" className={twMerge("font-bold")}>
           {SiteTitle}
         </Link>
 
