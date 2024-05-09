@@ -211,7 +211,7 @@ const ItemView: React.FC<{
 
   const [copiedAt, setCopiedAt] = useState<Date>();
 
-  if (!nav || nav.itemId == null) {
+  if (nav.itemId == null) {
     return null;
   }
 
