@@ -1,6 +1,8 @@
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import PageLink from "../navigation/PageLink";
+import CategoryData from "./CategoryData";
+import SiteTitle from "./SiteTitle";
 
 const RootView: React.FC<{
   className?: string;
@@ -23,29 +25,17 @@ const RootView: React.FC<{
     >
       <div className="grow" />
       <div className="flex w-[250px] max-w-full flex-col gap-2">
-        <h1 className="text-4xl font-bold">SiteTitle</h1>
+        <h1 className="text-4xl font-bold">{SiteTitle}</h1>
         <div className="text-2xl">
-          <PageLink className="-mx-2 block rounded-md border-1 px-2 py-1">
-            design
-          </PageLink>
-          <PageLink className="-mx-2 block rounded-md border-1 px-2 py-1">
-            code
-          </PageLink>
-          <PageLink className="-mx-2 block rounded-md border-1 px-2 py-1">
-            hardware
-          </PageLink>
-          <PageLink className="-mx-2 block rounded-md border-1 px-2 py-1">
-            thoughts
-          </PageLink>
-          <PageLink className="-mx-2 block rounded-md border-1 px-2 py-1">
-            photography
-          </PageLink>
-          <PageLink
-            className="-mx-2 block rounded-md border-1 px-2 py-1"
-            href="/work"
-          >
-            work history
-          </PageLink>
+          {Object.entries(CategoryData).map(([id, category]) => (
+            <PageLink
+              key={id}
+              className="-mx-2 block rounded-md border-1 px-2 py-1"
+              href={"/" + id}
+            >
+              {category.name}
+            </PageLink>
+          ))}
         </div>
       </div>
       <div className="grow" />

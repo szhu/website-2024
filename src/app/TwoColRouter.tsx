@@ -9,10 +9,6 @@ const TwoColRouter: React.FC<{
 
   const notFound = props.children;
 
-  if (!nav) {
-    return notFound;
-  }
-
   if (nav.itemId != null) {
     return nav.categoryId === "work" ? (
       <TwoColPage left="item" right="workHistory" sm="left" />
@@ -29,7 +25,11 @@ const TwoColRouter: React.FC<{
     );
   }
 
-  return <TwoColPage left="root" right="blank" sm="left" />;
+  if (nav.isRoot) {
+    return <TwoColPage left="root" right="blank" sm="left" />;
+  }
+
+  return notFound;
 };
 
 export default TwoColRouter;

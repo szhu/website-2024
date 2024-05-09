@@ -1,5 +1,3 @@
-"use client";
-
 const BlankView: React.FC<{
   className?: string;
 }> = (props) => {

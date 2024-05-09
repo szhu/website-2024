@@ -155,7 +155,7 @@ interface WorkHistoryItem {
   when: string;
 }
 
-export const WorkHistory: WorkHistoryItem[] = `
+export const WorkHistoryData: WorkHistoryItem[] = `
 mutableai	Mutable.ai	mutable.ai	Lead Frontend Engineer & Designer	2023-06	2023–
 oneschema	OneSchema	oneschema.co	Software Engineer	2022-03	Spring 2022
 contributionlabs	Contribution Labs	mintkudos.xyz	Software Engineer	2021-12	Winter 2021

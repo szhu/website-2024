@@ -1,5 +1,5 @@
-"use client";
 import { twMerge } from "tailwind-merge";
+import disabled from "../debug/Disabled";
 import { useDidPropChangeAcrossRoutes } from "../extends/next/TrackPropsAcrossRoutes";
 import BlankView from "../items/BlankView";
 import ItemView from "../items/ItemView";
@@ -55,7 +55,9 @@ const TwoColPage: React.FC<{
         />
       </main>
 
-      <footer className="sticky bottom-0 flex flex-row gap-2 border-t-1 border-gray-300 bg-white p-2 dark:border-gray-700 dark:bg-black" />
+      {disabled && (
+        <footer className="sticky bottom-0 flex flex-row gap-2 border-t-1 border-gray-300 bg-white p-2 dark:border-gray-700 dark:bg-black" />
+      )}
     </div>
   );
 };

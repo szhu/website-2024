@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import PageLink from "../navigation/PageLink";
-import { WorkHistory } from "./data";
+import { WorkHistoryData } from "./WorkHistoryData";
 
 const WorkHistoryView: React.FC<{
   className?: string;
@@ -23,7 +23,8 @@ const WorkHistoryView: React.FC<{
       }}
     >
       <div className="grow" />
-      {WorkHistory.map((item, index) => {
+
+      {WorkHistoryData.map((item, index) => {
         // const href = `https://${item.domain}`;
 
         return (

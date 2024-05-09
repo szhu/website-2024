@@ -1,34 +1,34 @@
 "use client";
-
 import { usePathname } from "next/navigation";
 import React, { useContext } from "react";
 import UnknownString from "../extends/typescript/UnknownString";
+import CategoryData from "../listings/CategoryData";
 
-type NavState =
-  | {
-      categoryId?: "work" | UnknownString;
-      itemId?: string | UnknownString;
-    }
-  | undefined;
+type NavState = {
+  isRoot?: true;
+  categoryId?: keyof typeof CategoryData;
+  isCategory?: true;
+  itemId?: string | UnknownString;
+};
 
 function useNavState(): NavState {
   const pathname = usePathname();
   const parts = pathname.replaceAll(/\/+$/g, "").split("/");
 
   if (parts[1] == null) {
-    return {};
+    return { isRoot: true };
   } else if (parts[1] === "work") {
     if (parts[2] == null) {
-      return { categoryId: "work" };
+      return { categoryId: "work", isCategory: true };
     } else if (parts[3] == null) {
       return { categoryId: "work", itemId: parts[2] };
     }
   }
 
-  return;
+  return {};
 }
 
-const NavContext = React.createContext<NavState>(undefined);
+const NavContext = React.createContext<NavState | undefined>(undefined);
 
 export const NavContextProvider: React.FC<{
   children: React.ReactNode;
@@ -38,5 +38,10 @@ export const NavContextProvider: React.FC<{
 };
 
 export function useNavContext(): NavState {
-  return useContext(NavContext);
+  const value = useContext(NavContext);
+  if (value == null) {
+    throw new Error("useNavContext must be used within a NavContextProvider");
+  }
+
+  return value;
 }

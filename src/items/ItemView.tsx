@@ -1,4 +1,3 @@
-"use client";
 import { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import getDataUrlFromFile from "../extends/file/getDataUrlFromFile";
@@ -206,7 +205,7 @@ const ItemView: React.FC<{
   const nav = useNavContext();
 
   const didItemIdChange = //
-    useDidPropChangeAcrossRoutes("ItemView.nav.itemId", nav?.itemId);
+    useDidPropChangeAcrossRoutes("ItemView.nav.itemId", nav.itemId);
 
   const editorRef = useRef<HTMLElement>(null);
 

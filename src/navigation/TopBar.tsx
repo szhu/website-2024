@@ -1,32 +1,53 @@
-"use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { twMerge } from "tailwind-merge";
+import Disabled from "../debug/Disabled";
+import CategoryData from "../listings/CategoryData";
+import SiteTitle from "../listings/SiteTitle";
+import { useNavContext } from "./NavContext";
 
 const TopBar: React.FC<unknown> = () => {
-  const pathname = usePathname();
+  const nav = useNavContext();
 
-  const isRoot = pathname === "/";
-  const pathParts = pathname.split("/");
-  const isTopCategory =
-    pathParts[1] != null && pathParts[1].length > 0 && pathParts[2] == null;
+  const category =
+    nav.categoryId == null
+      ? undefined
+      : { ...CategoryData[nav.categoryId], id: nav.categoryId };
 
   return (
-    <div className="sticky top-0 flex shrink-0 flex-row items-center gap-4 overflow-x-auto border-b-1 border-gray-300 bg-white px-3 py-2 pt-3 dark:border-gray-700 dark:bg-black">
-      <Link
-        href="/"
-        className={twMerge(
-          "font-bold",
-          isRoot && "invisible",
-          isTopCategory && "visible sm:invisible",
+    <div
+      className={twMerge(
+        nav.isRoot && "border-transparent",
+        nav.isCategory && "border-gray-300 sm:border-transparent",
+        "sticky top-0 shrink-0 overflow-x-auto border-b-1 bg-white px-3 py-2 pt-3 dark:border-gray-700 dark:bg-black",
+      )}
+    >
+      <div className="mx-auto flex max-w-[1500px] flex-row items-center gap-4">
+        <Link
+          href="/"
+          className={twMerge(
+            "font-bold",
+            nav.isRoot && "invisible",
+            nav.isCategory && "visible sm:invisible",
+          )}
+        >
+          {SiteTitle}
+        </Link>
+
+        {category && (
+          <Link
+            href={"/" + category.id}
+            className={twMerge(nav.isCategory && "sm:hidden")}
+          >
+            {category.name}
+          </Link>
         )}
-      >
-        SiteTitle
-      </Link>
-      <div className="grow" />
-      <a>Category</a>
-      <a>About</a>
-      <a className="rounded bg-gray-800 px-3 py-0.5 text-white">Contact</a>
+
+        <div className="grow" />
+
+        {Disabled && (
+          <a className="rounded bg-gray-800 px-3 py-0.5 text-white">Contact</a>
+        )}
+      </div>
     </div>
   );
 };
