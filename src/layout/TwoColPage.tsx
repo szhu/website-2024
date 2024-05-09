@@ -26,7 +26,7 @@ const TwoColPage: React.FC<{
   const didRightChange = useDidPropChangeAcrossRoutes("right", props.right);
 
   const alwaysShownClassName = "flex";
-  const mdShownClassName = "hidden sm:flex";
+  const smShownClassName = "hidden sm:flex";
 
   return (
     <div className="flex min-h-dvh shrink-0 flex-col text-black sm:h-dvh sm:overflow-y-hidden dark:text-gray-200">
@@ -43,13 +43,13 @@ const TwoColPage: React.FC<{
       >
         <Left
           className={twMerge(
-            props.sm === "left" ? alwaysShownClassName : mdShownClassName,
+            props.sm === "left" ? alwaysShownClassName : smShownClassName,
             didLeftChange ? "animate-fade" : "",
           )}
         />
         <Right
           className={twMerge(
-            props.sm === "right" ? alwaysShownClassName : mdShownClassName,
+            props.sm === "right" ? alwaysShownClassName : smShownClassName,
             didRightChange ? "animate-fade" : "",
           )}
         />
