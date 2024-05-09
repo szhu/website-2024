@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { WorkHistory } from "../data/data";
-import PageLink from "./PageLink";
+import PageLink from "../layout/PageLink";
 
 const WorkHistoryView: React.FC<{
   className?: string;
