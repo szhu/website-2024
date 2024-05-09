@@ -1,11 +1,11 @@
 "use client";
 import { twMerge } from "tailwind-merge";
-import TopBar from "../app/TopBar";
-import BlankView from "../cols/BlankView";
-import ItemView from "../cols/ItemView";
-import RootView from "../cols/RootView";
-import WorkHistoryView from "../cols/WorkHistoryView";
 import { useDidPropChangeAcrossRoutes } from "../extends/next/TrackPropsAcrossRoutes";
+import BlankView from "../items/BlankView";
+import ItemView from "../items/ItemView";
+import RootView from "../listings/RootView";
+import WorkHistoryView from "../listings/WorkHistoryView";
+import TopBar from "../navigation/TopBar";
 
 const TwoColPagesById = {
   blank: BlankView,

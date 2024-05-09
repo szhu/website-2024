@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
-import PageLink from "../layout/PageLink";
+import PageLink from "../navigation/PageLink";
 
 const RootView: React.FC<{
   className?: string;

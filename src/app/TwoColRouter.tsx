@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
-import TwoColPage from "../layout/TwoColPage";
+import TwoColPage from "./TwoColPage";
 
 function usePathParts() {
   const pathname = usePathname();
