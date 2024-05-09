@@ -31,7 +31,7 @@ const RootView: React.FC<{
           {Object.entries(CategoryData).map(([id, category]) => (
             <PageLink
               key={id}
-              className="-mx-2 block rounded-md border-1 px-2 py-1"
+              className="block rounded-md py-1"
               href={"/" + id}
             >
               {category.name}

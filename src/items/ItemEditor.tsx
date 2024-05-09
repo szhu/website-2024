@@ -47,9 +47,17 @@ const ItemEditor: React.FC<{
 
           {
             // Unwrap all <div> and <span>
-            const els = target.querySelectorAll(":not(p,img)");
+            const els = target.querySelectorAll(":not(p,img,br)");
             for (const element of els) {
               unwrapElement(element);
+            }
+          }
+
+          {
+            // Unnest all <br>
+            const els = target.querySelectorAll(":scope > * > br");
+            for (const element of els) {
+              unnestChild(element, () => {});
             }
           }
 

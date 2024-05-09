@@ -32,7 +32,7 @@ const WorkHistoryView: React.FC<{
           <PageLink
             key={index}
             href={"/work/" + item.id}
-            className="block rounded-md border-1 px-4 py-2"
+            className="block rounded-md py-2"
             scroll={false}
             shallow
           >

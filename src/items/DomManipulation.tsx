@@ -32,7 +32,7 @@ function compareElementPositionToCaret(element: Node): number | undefined {
 
 export function unnestChild(
   targetChild: Node,
-  transform?: (child: Node) => Node,
+  transform?: ((child: Node) => void) | ((child: Node) => Node | undefined),
 ) {
   const container = targetChild.parentElement;
   if (!container) return;
@@ -57,7 +57,10 @@ export function unnestChild(
       after.before(before);
     }
 
-    after.before(transform ? transform(targetChild) : targetChild);
+    const childToInsert = transform ? transform(targetChild) : targetChild;
+    if (childToInsert) {
+      after.before(childToInsert);
+    }
 
     if (!after.hasChildNodes()) {
       after.remove();
@@ -82,7 +85,10 @@ export function unnestChild(
       before.after(after);
     }
 
-    before.after(transform ? transform(targetChild) : targetChild);
+    const childToInsert = transform ? transform(targetChild) : targetChild;
+    if (childToInsert) {
+      before.after(childToInsert);
+    }
 
     if (!before.hasChildNodes()) {
       before.remove();
