@@ -1,9 +1,9 @@
 "use client";
 import { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { useItemId } from "../app/TwoColRouter";
 import getDataUrlFromFile from "../extends/file/getDataUrlFromFile";
 import { useDidPropChangeAcrossRoutes } from "../extends/next/TrackPropsAcrossRoutes";
+import { useNavContext } from "../navigation/NavContext";
 
 function insertNodesAt(range: Range, nodes: Node[]) {
   for (const node of nodes) {
@@ -203,18 +203,22 @@ const ContentEditable: React.FC<{
 const ItemView: React.FC<{
   className?: string;
 }> = (props) => {
-  const itemId = useItemId();
+  const nav = useNavContext();
 
   const didItemIdChange = //
-    useDidPropChangeAcrossRoutes("ItemView.itemId", itemId);
+    useDidPropChangeAcrossRoutes("ItemView.nav.itemId", nav?.itemId);
 
   const editorRef = useRef<HTMLElement>(null);
 
   const [copiedAt, setCopiedAt] = useState<Date>();
 
+  if (!nav || nav.itemId == null) {
+    return null;
+  }
+
   return (
     <div
-      key={itemId}
+      key={nav.itemId}
       className={twMerge(
         "flex grow flex-col overflow-y-auto px-4 py-6 sm:items-end [&>*]:shrink-0",
         didItemIdChange && "animate-fade",
@@ -223,7 +227,7 @@ const ItemView: React.FC<{
     >
       <div className="grow" />
       <div className="w-[700px] max-w-full">
-        <div>{itemId}</div>
+        <div>{nav.itemId}</div>
 
         <ContentEditable
           editorRef={editorRef}

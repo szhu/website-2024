@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { TrackPropsAcrossRoutesProvider } from "../extends/next/TrackPropsAcrossRoutes";
 import StyledComponentsRegistry from "../extends/styled-components/StyledComponentsRegistry";
+import { NavContextProvider } from "../navigation/NavContext";
 import TwoColRouter from "./TwoColRouter";
 import "./globals.css";
 
@@ -14,13 +15,15 @@ export const metadata: Metadata = {
 const layout: React.FC<{ children: React.ReactNode }> = (props) => {
   return (
     <StyledComponentsRegistry>
-      <TrackPropsAcrossRoutesProvider>
-        <html lang="en">
-          <body className={inter.className}>
-            <TwoColRouter>{props.children}</TwoColRouter>
-          </body>
-        </html>
-      </TrackPropsAcrossRoutesProvider>
+      <NavContextProvider>
+        <TrackPropsAcrossRoutesProvider>
+          <html lang="en">
+            <body className={inter.className}>
+              <TwoColRouter>{props.children}</TwoColRouter>
+            </body>
+          </html>
+        </TrackPropsAcrossRoutesProvider>
+      </NavContextProvider>
     </StyledComponentsRegistry>
   );
 };
