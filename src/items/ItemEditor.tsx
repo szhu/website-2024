@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import ContentEditable from "../debug/ContentEditable";
+import { save } from "../debug/LocalSaving";
 import getDataUrlFromFile from "../extends/file/getDataUrlFromFile";
 import { unnestChild, unwrapElement } from "./DomManipulation";
 
@@ -8,8 +9,9 @@ const ItemEditor: React.FC<{
   children?: React.ReactNode;
 }> = (props) => {
   const editorRef = useRef<HTMLElement>(null);
-  const [htmlCopiedAt, setHtmlCopiedAt] = useState<Date>();
-  const [pathCopiedAt, setPathCopiedAt] = useState<Date>();
+  const [savedAt, setSavedAt] = useState<Date>();
+
+  const path = getComponentPath();
 
   return (
     <>
@@ -148,70 +150,20 @@ const ItemEditor: React.FC<{
         {props.children}
       </ContentEditable>
       <button
+        className="my-2 rounded-md border-1 border-black p-1 dark:border-white"
         onClick={async () => {
           if (!editorRef.current) return;
 
-          const fragment = document.createElement("body");
-          for (const child of editorRef.current.childNodes) {
-            fragment.append(child.cloneNode(true));
-          }
+          const code = getComponentCode(editorRef.current);
 
-          const serializer = new XMLSerializer();
-          let xhtml = serializer.serializeToString(fragment);
-
-          const ExpectedPrefix = `<body xmlns="http://www.w3.org/1999/xhtml">`;
-          const ExpectedSuffix = `</body>`;
-
-          if (
-            xhtml.startsWith(ExpectedPrefix) &&
-            xhtml.endsWith(ExpectedSuffix)
-          ) {
-            xhtml = xhtml.slice(ExpectedPrefix.length, -ExpectedSuffix.length);
-          }
-
-          const ComponentPrefix = `
-/* eslint-disable @next/next/no-img-element */
-
-const page: React.FC<unknown> = () => {
-  return (
-    <>
-`;
-
-          const ComponentSuffix = `
-    </>
-  );
-};
-
-export default page;
-`;
-
-          await navigator.clipboard.writeText(
-            ComponentPrefix + xhtml + ComponentSuffix,
-          );
-          setHtmlCopiedAt(new Date());
+          await save(path, code);
+          setSavedAt(new Date());
         }}
       >
-        Copy HTML{" "}
+        💾 <code className="text-sm">{path}</code>{" "}
         <span
-          key={htmlCopiedAt?.toISOString()}
-          className={htmlCopiedAt ? "animate-fade-200" : "invisible"}
-        >
-          ✔
-        </span>
-      </button>{" "}
-      &nbsp;{" "}
-      <button
-        onClick={async () => {
-          const path =
-            window.location.pathname.replaceAll(/^\/|\/$/g, "") + "/page.tsx";
-          await navigator.clipboard.writeText(path);
-          setPathCopiedAt(new Date());
-        }}
-      >
-        Copy Component Path{" "}
-        <span
-          key={pathCopiedAt?.toISOString()}
-          className={pathCopiedAt ? "animate-fade-200" : "invisible"}
+          key={savedAt?.toISOString()}
+          className={savedAt ? "animate-fade-200" : "invisible"}
         >
           ✔
         </span>
@@ -221,3 +173,43 @@ export default page;
 };
 
 export default ItemEditor;
+
+function getComponentPath() {
+  return window.location.pathname.replaceAll(/^\/|\/$/g, "") + "/page.tsx";
+}
+
+function getComponentCode(editor: HTMLElement) {
+  const fragment = document.createElement("body");
+  for (const child of editor.childNodes) {
+    fragment.append(child.cloneNode(true));
+  }
+
+  const serializer = new XMLSerializer();
+  let xhtml = serializer.serializeToString(fragment);
+
+  const ExpectedPrefix = `<body xmlns="http://www.w3.org/1999/xhtml">`;
+  const ExpectedSuffix = `</body>`;
+
+  if (xhtml.startsWith(ExpectedPrefix) && xhtml.endsWith(ExpectedSuffix)) {
+    xhtml = xhtml.slice(ExpectedPrefix.length, -ExpectedSuffix.length);
+  }
+
+  const ComponentPrefix = `
+/* eslint-disable @next/next/no-img-element */
+
+const page: React.FC<unknown> = () => {
+  return (
+    <>
+`;
+
+  const ComponentSuffix = `
+    </>
+  );
+};
+
+export default page;
+`;
+
+  const componentCode = ComponentPrefix + xhtml + ComponentSuffix;
+  return componentCode;
+}
