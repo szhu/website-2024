@@ -27,13 +27,11 @@ const ItemView: React.FC<{
         didItemIdChange && "animate-fade-500",
         props.className,
       )}
-      onDoubleClick={
-        localStorage.edit === "1"
-          ? () => {
-              setIsEditing(true);
-            }
-          : undefined
-      }
+      onDoubleClick={() => {
+        if (localStorage.edit === "1") {
+          setIsEditing(true);
+        }
+      }}
     >
       <div className="grow" />
       <div className="w-[700px] max-w-full shrink-0">
