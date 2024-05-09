@@ -19,6 +19,10 @@ export default {
           to: { opacity: "1" },
         },
       },
+      screens: {
+        // https://github.com/tailwindlabs/tailwindcss/discussions/1739#discussioncomment-56282
+        "hover-hover": { raw: "(hover: hover)" },
+      },
     },
   },
   plugins: [],

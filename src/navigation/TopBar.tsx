@@ -16,6 +16,7 @@ const TopBar: React.FC<unknown> = () => {
   return (
     <div
       className={twMerge(
+        "transition-colors duration-200",
         nav.isRoot && "border-transparent",
         nav.isCategory && "border-gray-300 sm:border-transparent",
         "sticky top-0 shrink-0 overflow-x-auto border-b-1 bg-white px-3 py-2 pt-3 dark:border-gray-700 dark:bg-black",
