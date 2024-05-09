@@ -21,7 +21,7 @@ export default {
       },
       screens: {
         // https://github.com/tailwindlabs/tailwindcss/discussions/1739#discussioncomment-56282
-        "hover-hover": { raw: "(hover: hover)" },
+        "hover-supported": { raw: "(hover: hover)" },
       },
     },
   },

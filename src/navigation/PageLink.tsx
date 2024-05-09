@@ -15,7 +15,7 @@ const PageLink: React.FC<Partial<React.ComponentProps<typeof Link>>> = (
       : "border-transparent",
     !isCurrent &&
       props.href != null &&
-      "hover:border-amber-700/10 hover:bg-amber-300/20 hover:dark:border-amber-200/10",
+      "hover-supported:hover:border-amber-700/10 hover-supported:hover:bg-amber-300/20 hover-supported:hover:dark:border-amber-200/10",
     props.className,
   );
 
