@@ -227,7 +227,7 @@ const ItemView: React.FC<{
 
         <ContentEditable
           editorRef={editorRef}
-          className="min-h-40 border-collapse rounded-md border-1 border-black p-1 dark:border-white [&>p+p]:border-t-0 [&>p:first-child]:border-t-0 [&>p:has(>img)]:px-6  [&>p:last-child]:border-b-0 [&>p>img]:mx-auto [&>p>img]:max-h-72 [&>p>img]:cursor-pointer [&>p>img]:px-1 [&>p]:border-y-1 [&>p]:border-gray-500 [&>p]:py-2"
+          className="min-h-40 border-collapse whitespace-pre-wrap rounded-md border-1 border-black p-1 dark:border-white [&>p+p]:border-t-0 [&>p:first-child]:border-t-0 [&>p:has(>img)]:px-6  [&>p:last-child]:border-b-0 [&>p>img]:mx-auto [&>p>img]:max-h-72 [&>p>img]:cursor-pointer [&>p>img]:px-1 [&>p]:border-y-1 [&>p]:border-gray-500 [&>p]:py-2"
           onClick={(event) => {
             if (event.target instanceof HTMLImageElement) {
               // Select the image if clicked
