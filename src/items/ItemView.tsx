@@ -1,4 +1,3 @@
-import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useDidPropChangeAcrossRoutes } from "../extends/next/TrackPropsAcrossRoutes";
@@ -10,7 +9,6 @@ const ItemView: React.FC<{
   children?: React.ReactNode;
 }> = (props) => {
   const nav = useNavContext();
-  const searchParams = useSearchParams();
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -29,19 +27,14 @@ const ItemView: React.FC<{
         didItemIdChange && "animate-fade",
         props.className,
       )}
+      onDoubleClick={
+        localStorage.edit === "1"
+          ? () => {
+              setIsEditing(true);
+            }
+          : undefined
+      }
     >
-      {localStorage.edit === "1" && (
-        <label>
-          <input
-            type="checkbox"
-            checked={isEditing}
-            onChange={(event) => {
-              setIsEditing(event.currentTarget.checked);
-            }}
-          />{" "}
-          Edit
-        </label>
-      )}
       <div className="grow" />
       <div className="w-[700px] max-w-full shrink-0">
         {isEditing ? <ItemEditor>{props.children}</ItemEditor> : props.children}
