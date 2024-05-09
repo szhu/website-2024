@@ -11,7 +11,8 @@ export default {
         bullet: `'• '`,
       },
       animation: {
-        fade: "fadeIn 0.5s ease-in-out",
+        "fade-200": "fadeIn 200ms ease-in-out",
+        "fade-500": "fadeIn 500ms ease-in-out",
       },
       keyframes: {
         fadeIn: {

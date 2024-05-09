@@ -24,7 +24,7 @@ const ItemView: React.FC<{
       key={nav.itemId}
       className={twMerge(
         "flex grow flex-col overflow-y-auto px-4 py-6",
-        didItemIdChange && "animate-fade",
+        didItemIdChange && "animate-fade-500",
         props.className,
       )}
       onDoubleClick={

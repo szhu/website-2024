@@ -8,7 +8,8 @@ const ItemEditor: React.FC<{
   children?: React.ReactNode;
 }> = (props) => {
   const editorRef = useRef<HTMLElement>(null);
-  const [copiedAt, setCopiedAt] = useState<Date>();
+  const [htmlCopiedAt, setHtmlCopiedAt] = useState<Date>();
+  const [pathCopiedAt, setPathCopiedAt] = useState<Date>();
 
   return (
     <>
@@ -146,7 +147,6 @@ const ItemEditor: React.FC<{
       >
         {props.children}
       </ContentEditable>
-
       <button
         onClick={async () => {
           if (!editorRef.current) return;
@@ -188,13 +188,30 @@ export default page;
           await navigator.clipboard.writeText(
             ComponentPrefix + xhtml + ComponentSuffix,
           );
-          setCopiedAt(new Date());
+          setHtmlCopiedAt(new Date());
         }}
       >
         Copy HTML{" "}
         <span
-          key={copiedAt?.toISOString()}
-          className={copiedAt ? "animate-fade" : "invisible"}
+          key={htmlCopiedAt?.toISOString()}
+          className={htmlCopiedAt ? "animate-fade-200" : "invisible"}
+        >
+          ✔
+        </span>
+      </button>{" "}
+      &nbsp;{" "}
+      <button
+        onClick={async () => {
+          const path =
+            window.location.pathname.replaceAll(/^\/|\/$/g, "") + "/page.tsx";
+          await navigator.clipboard.writeText(path);
+          setPathCopiedAt(new Date());
+        }}
+      >
+        Copy Component Path{" "}
+        <span
+          key={pathCopiedAt?.toISOString()}
+          className={pathCopiedAt ? "animate-fade-200" : "invisible"}
         >
           ✔
         </span>
