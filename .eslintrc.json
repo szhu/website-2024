@@ -273,7 +273,7 @@
           "ref": true,
           "src": true
         },
-        "ignore": ["Refs?($|[A-Z])", "Props?($|[A-Z])"]
+        "ignore": ["Refs?($|[A-Z])", "Props?($|[A-Z])", "Params?($|[A-Z])"]
       }
     ],
     "unicorn/switch-case-braces": ["error", "avoid"]

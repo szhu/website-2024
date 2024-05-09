@@ -5,6 +5,7 @@ import { WorkHistoryData } from "./WorkHistoryData";
 
 const WorkHistoryView: React.FC<{
   className?: string;
+  children?: React.ReactNode;
 }> = (props) => {
   const router = useRouter();
 

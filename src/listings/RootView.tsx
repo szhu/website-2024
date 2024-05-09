@@ -6,6 +6,7 @@ import SiteTitle from "./SiteTitle";
 
 const RootView: React.FC<{
   className?: string;
+  children?: React.ReactNode;
 }> = (props) => {
   const router = useRouter();
 

@@ -10,13 +10,14 @@ import TopBar from "../navigation/TopBar";
 const TwoColPagesById = {
   blank: BlankView,
   root: RootView,
-  workHistory: WorkHistoryView,
+  work: WorkHistoryView,
   item: ItemView,
 };
 
 const TwoColPage: React.FC<{
   left: keyof typeof TwoColPagesById;
   right: keyof typeof TwoColPagesById;
+  page: React.ReactNode;
   sm: "left" | "right";
 }> = (props) => {
   const Left = TwoColPagesById[props.left];
@@ -46,13 +47,17 @@ const TwoColPage: React.FC<{
             props.sm === "left" ? alwaysShownClassName : smShownClassName,
             didLeftChange ? "animate-fade" : "",
           )}
-        />
+        >
+          {props.page}
+        </Left>
         <Right
           className={twMerge(
             props.sm === "right" ? alwaysShownClassName : smShownClassName,
             didRightChange ? "animate-fade" : "",
           )}
-        />
+        >
+          {props.page}
+        </Right>
       </main>
 
       {disabled && (

@@ -11,9 +11,9 @@ const TwoColRouter: React.FC<{
 
   if (nav.itemId != null) {
     return nav.categoryId === "work" ? (
-      <TwoColPage left="item" right="workHistory" sm="left" />
+      <TwoColPage left="item" right="work" sm="left" page={props.children} />
     ) : nav.itemId === "about" ? (
-      <TwoColPage left="root" right="item" sm="right" />
+      <TwoColPage left="root" right="item" sm="right" page={props.children} />
     ) : (
       notFound
     );
@@ -21,14 +21,16 @@ const TwoColRouter: React.FC<{
 
   if (nav.categoryId != null) {
     return nav.categoryId === "work" ? (
-      <TwoColPage left="root" right="workHistory" sm="right" />
+      <TwoColPage left="root" right="work" sm="right" page={props.children} />
     ) : (
       notFound
     );
   }
 
   if (nav.isRoot) {
-    return <TwoColPage left="root" right="blank" sm="left" />;
+    return (
+      <TwoColPage left="root" right="blank" sm="left" page={props.children} />
+    );
   }
 
   return notFound;
