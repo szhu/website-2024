@@ -15,17 +15,40 @@ function useNavState(): NavState {
   const pathname = usePathname();
   const parts = pathname.replaceAll(/\/+$/g, "").split("/");
 
-  if (parts[1] == null) {
-    return { isRoot: true };
-  } else if (parts[1] === "work") {
-    if (parts[2] == null) {
-      return { categoryId: "work", isCategory: true };
-    } else if (parts[3] == null) {
-      return { categoryId: "work", itemId: parts[2] };
-    }
-  }
+  parts.shift();
 
-  return {};
+  switch (parts.shift()) {
+    case undefined:
+      return { isRoot: true };
+
+    case "about":
+      switch (parts.shift()) {
+        case undefined:
+          return { itemId: "about" };
+
+        default:
+          return {};
+      }
+
+    case "work": {
+      const itemId = parts.shift();
+      switch (itemId) {
+        case undefined:
+          return { categoryId: "work", isCategory: true };
+
+        default:
+          switch (parts.shift()) {
+            case undefined:
+              return { categoryId: "work", itemId };
+
+            default:
+              return {};
+          }
+      }
+    }
+    default:
+      return {};
+  }
 }
 
 const NavContext = React.createContext<NavState | undefined>(undefined);

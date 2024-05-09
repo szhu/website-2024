@@ -15,8 +15,12 @@ function getCategory(categoryId: keyof typeof CategoryData | undefined) {
 const TopBar: React.FC<unknown> = () => {
   const nav = useNavContext();
 
+  const isOneLevelIn =
+    nav.isCategory || (nav.categoryId == null && nav.itemId != null);
+
   const lastCategoryIdRef = useRef(nav.categoryId);
-  if (nav.categoryId != null) lastCategoryIdRef.current = nav.categoryId;
+  if (nav.categoryId != null || isOneLevelIn)
+    lastCategoryIdRef.current = nav.categoryId;
   const category = getCategory(lastCategoryIdRef.current);
 
   return (
@@ -27,7 +31,7 @@ const TopBar: React.FC<unknown> = () => {
         "border-t-1 sm:border-b-1 sm:border-t-0 hover-supported:border-b-1 hover-supported:border-t-0",
         "transition-[opacity,visibility] duration-200 sm:delay-1000 sm:duration-1000",
         nav.isRoot && "invisible opacity-0",
-        nav.isCategory && "sm:invisible sm:opacity-0",
+        isOneLevelIn && "sm:invisible sm:opacity-0",
       )}
     >
       <div className="mx-auto flex max-w-[1500px] flex-row items-center gap-4">
@@ -38,7 +42,7 @@ const TopBar: React.FC<unknown> = () => {
         {category && (
           <Link
             href={"/" + category.id}
-            className={twMerge(nav.isCategory && "sm:hidden")}
+            className={twMerge(isOneLevelIn && "sm:hidden")}
           >
             {category.name}
           </Link>

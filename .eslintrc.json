@@ -275,6 +275,7 @@
         },
         "ignore": ["Refs?($|[A-Z])", "Props?($|[A-Z])"]
       }
-    ]
+    ],
+    "unicorn/switch-case-braces": ["error", "avoid"]
   }
 }

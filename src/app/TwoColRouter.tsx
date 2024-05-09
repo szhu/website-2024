@@ -12,6 +12,8 @@ const TwoColRouter: React.FC<{
   if (nav.itemId != null) {
     return nav.categoryId === "work" ? (
       <TwoColPage left="item" right="workHistory" sm="left" />
+    ) : nav.itemId === "about" ? (
+      <TwoColPage left="root" right="item" sm="right" />
     ) : (
       notFound
     );
