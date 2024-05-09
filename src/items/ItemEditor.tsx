@@ -150,7 +150,7 @@ const ItemEditor: React.FC<{
         {props.children}
       </ContentEditable>
       <button
-        className="my-2 rounded-md border-1 border-black p-1 dark:border-white"
+        className="my-2 rounded-md border-1 border-black px-4 py-2 dark:border-white"
         onClick={async () => {
           if (!editorRef.current) return;
 
@@ -160,13 +160,15 @@ const ItemEditor: React.FC<{
           setSavedAt(new Date());
         }}
       >
-        💾 <code className="text-sm">{path}</code>{" "}
-        <span
-          key={savedAt?.toISOString()}
-          className={savedAt ? "animate-fade-200" : "invisible"}
-        >
-          ✔
-        </span>
+        <code className="text-sm">
+          <span
+            key={savedAt?.toISOString()}
+            className={savedAt ? "animate-fade-200" : ""}
+          >
+            💾
+          </span>{" "}
+          {path}
+        </code>{" "}
       </button>
     </>
   );
