@@ -29,7 +29,7 @@ const TwoColPage: React.FC<{
   const smShownClassName = "hidden sm:flex";
 
   return (
-    <div className="flex min-h-dvh shrink-0 flex-col text-black sm:h-dvh sm:overflow-y-hidden dark:text-gray-200">
+    <div className="flex min-h-dvh shrink-0 flex-col-reverse text-black sm:h-dvh sm:flex-col sm:overflow-y-hidden hover-supported:flex-col dark:text-gray-200">
       <header className="contents">
         <TopBar />
       </header>
