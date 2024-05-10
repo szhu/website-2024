@@ -2,12 +2,25 @@
 
 let saveDirectory: FileSystemDirectoryHandle | undefined;
 
-export async function save(path: string, content: string) {
-  if (saveDirectory == null) {
-    saveDirectory = await window.showDirectoryPicker(
-      //
-      { mode: "readwrite" },
-    );
+export async function saveIntoDirectory(
+  testThatSubdirectoryExists: string,
+  path: string,
+  content: string,
+) {
+  while (saveDirectory == null) {
+    try {
+      saveDirectory = await window.showDirectoryPicker({ mode: "readwrite" });
+    } catch {
+      return false;
+    }
+
+    // Make sure we've selected the correct directory.
+    try {
+      await saveDirectory.getDirectoryHandle(testThatSubdirectoryExists);
+    } catch {
+      window.alert("Incorrect folder.");
+      saveDirectory = undefined;
+    }
   }
 
   const fileHandle = //
@@ -15,6 +28,8 @@ export async function save(path: string, content: string) {
   const writable = await fileHandle.createWritable();
   await writable.write(content);
   await writable.close();
+
+  return true;
 }
 
 async function getNested(

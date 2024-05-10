@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import ContentEditable from "../debug/ContentEditable";
-import { save } from "../debug/LocalSaving";
+import { saveIntoDirectory } from "../debug/LocalSaving";
 import getDataUrlFromFile from "../extends/file/getDataUrlFromFile";
 import { unnestChild, unwrapElement } from "./DomManipulation";
 
@@ -134,13 +134,13 @@ const ItemEditor: React.FC<{
                 const selection = window.getSelection();
                 if (!selection) return;
 
-                if (element.contains(selection.anchorNode)) {
-                  if (isEmpty) {
-                    element.append(document.createElement("br"));
-                  }
-                } else {
-                  element.remove();
+                // if (element.contains(selection.anchorNode)) {
+                if (isEmpty) {
+                  element.append(document.createElement("br"));
                 }
+                // } else {
+                // element.remove();
+                // }
               }
             }
           }
@@ -164,8 +164,10 @@ const ItemEditor: React.FC<{
 
           const code = getComponentCode(editorRef.current);
 
-          await save(path, code);
-          setSavedAt(new Date());
+          const didSave = await saveIntoDirectory("app", path, code);
+          if (didSave) {
+            setSavedAt(new Date());
+          }
         }}
       >
         <code className="text-sm">
@@ -185,7 +187,9 @@ const ItemEditor: React.FC<{
 export default ItemEditor;
 
 function getComponentPath() {
-  return window.location.pathname.replaceAll(/^\/|\/$/g, "") + "/page.tsx";
+  return (
+    "app/" + window.location.pathname.replaceAll(/^\/|\/$/g, "") + "/page.tsx"
+  );
 }
 
 function getComponentCode(editor: HTMLElement) {
