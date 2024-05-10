@@ -26,8 +26,9 @@ const TopBar: React.FC<unknown> = () => {
   return (
     <div
       className={twMerge(
-        "shrink-0 overflow-x-auto border-gray-300 bg-white/80 px-3 py-2 pt-3 backdrop-blur-sm dark:border-gray-700 dark:bg-black/80",
+        "shrink-0 overflow-x-auto border-gray-300 px-3 py-2 pt-3 backdrop-blur-sm dark:border-gray-700",
         "sticky bottom-0 z-10 sm:bottom-auto sm:top-0 hover-supported:top-0",
+        "bg-gray-200/40 sm:bg-white/80 hover-supported:bg-white/80 dark:bg-gray-600/40 sm:dark:bg-black/80 hover-supported:dark:bg-black/80",
         "border-t-1 sm:border-b-1 sm:border-t-0 hover-supported:border-b-1 hover-supported:border-t-0",
         "transition-[opacity,visibility] duration-200 sm:delay-1000 sm:duration-1000",
         nav.isRoot && "invisible opacity-0",
