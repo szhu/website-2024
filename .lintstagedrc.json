@@ -2,5 +2,8 @@
   "*.{css,tsx}": "bun run stylelint",
   "*.{js,jsx,mjs,ts,tsx,md,json}": "bun run prettier --write",
   "*.{js,jsx,mjs,ts,tsx}": "bun run eslint",
-  "*.{ts,tsx}": "sh -c 'bun run tsc'"
+  "*.{ts,tsx}": [
+    "sh -c 'git stash push --message pre-tsc --keep-index --include-untracked'",
+    "sh -c 'tsc --pretty; STATUS=$?; git stash pop --quiet; exit $STATUS'"
+  ]
 }
