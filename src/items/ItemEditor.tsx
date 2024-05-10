@@ -1,21 +1,31 @@
+import prettier from "prettier";
+import estree from "prettier/plugins/estree";
+import typescript from "prettier/plugins/typescript";
 import { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import ContentEditable from "../debug/ContentEditable";
-import { saveIntoDirectory } from "../debug/LocalSaving";
+import {
+  getBlobFromImg,
+  saveBlobByHash,
+  saveIntoDirectory,
+  setSaveDirectory,
+} from "../debug/LocalSaving";
 import getDataUrlFromFile from "../extends/file/getDataUrlFromFile";
 import { unnestChild, unwrapElement } from "./DomManipulation";
 
 const ItemEditor: React.FC<{
   children?: React.ReactNode;
+  onExit?: () => void;
 }> = (props) => {
   const editorRef = useRef<HTMLElement>(null);
   const [savedAt, setSavedAt] = useState<Date>();
 
-  const path = getComponentPath();
+  const directory = getComponentDirectory();
 
   return (
     <>
       <ContentEditable
+        key={savedAt?.toISOString()}
         editorRef={editorRef}
         className={twMerge(
           "min-h-40 border-collapse whitespace-pre-wrap rounded-md border-1 border-black p-1 dark:border-white",
@@ -157,39 +167,124 @@ const ItemEditor: React.FC<{
       >
         {props.children}
       </ContentEditable>
-      <button
-        className="my-2 rounded-md border-1 border-black px-4 py-2 dark:border-white"
-        onClick={async () => {
-          if (!editorRef.current) return;
 
-          const code = getComponentCode(editorRef.current);
+      <div className="flex flex-row gap-2">
+        <button
+          className="my-2 rounded-md border-1 border-black px-4 py-2 dark:border-white"
+          onClick={async () => {
+            if (!editorRef.current) return;
 
-          const didSave = await saveIntoDirectory("app", path, code);
-          if (didSave) {
-            setSavedAt(new Date());
-          }
-        }}
-      >
-        <code className="text-sm">
-          <span
-            key={savedAt?.toISOString()}
-            className={savedAt ? "animate-fade-200" : ""}
+            const didSave = await save(directory, editorRef.current);
+            if (didSave) {
+              setSavedAt(new Date());
+            }
+          }}
+        >
+          <code className="text-sm">
+            <span
+              key={savedAt?.toISOString()}
+              className={savedAt ? "animate-fade-200" : ""}
+            >
+              💾
+            </span>{" "}
+            {directory}
+          </code>{" "}
+        </button>
+
+        {props.onExit && (
+          <button
+            className="my-2 rounded-md border-1 border-black px-4 py-2 dark:border-white"
+            onClick={() => {
+              props.onExit?.();
+            }}
           >
-            💾
-          </span>{" "}
-          {path}
-        </code>{" "}
-      </button>
+            <code className="text-sm">✅</code>
+          </button>
+        )}
+      </div>
     </>
   );
 };
 
 export default ItemEditor;
 
-function getComponentPath() {
-  return (
-    "app/" + window.location.pathname.replaceAll(/^\/|\/$/g, "") + "/page.tsx"
+async function save(directory: string, originalNode: HTMLElement) {
+  await setSaveDirectory("app");
+
+  const node = originalNode.cloneNode(true) as HTMLElement;
+
+  const placeholderPrefix = Math.random().toString().replaceAll(".", "");
+  const placeholdersuffix = Math.random().toString().replaceAll(".", "");
+
+  let fileName;
+  for (const img of node.querySelectorAll(`img`)) {
+    fileName = img.dataset.filename;
+
+    if (!fileName) {
+      const blob = await getBlobFromImg(img);
+      if (!blob) {
+        console.warn("Failed to get blob from img", img);
+        continue;
+      }
+
+      fileName = await saveBlobByHash(directory, "image-", blob);
+      if (!fileName) {
+        console.warn("Failed to save img", img);
+        continue;
+      }
+    }
+
+    if (fileName) {
+      img.replaceWith(
+        document.createTextNode(
+          placeholderPrefix + encodeURIComponent(fileName) + placeholdersuffix,
+        ),
+      );
+    }
+  }
+
+  let code = getComponentCode(node);
+
+  let imports: string[] = [];
+
+  code = code.replaceAll(
+    new RegExp(placeholderPrefix + "(.*?)" + placeholdersuffix, "g"),
+    (_, fileName) => {
+      const imageCode = getImageCode(fileName);
+
+      imports.push(imageCode.import);
+      return imageCode.code;
+    },
   );
+
+  // Dedupe and sort imports
+  imports = [...new Set(imports)].sort();
+
+  if (imports.length > 0) {
+    imports.unshift(`import Image from 'next/image';`);
+  }
+  imports.unshift(`/* eslint-disable @next/next/no-img-element */  `);
+
+  code = imports.join("\n") + "\n" + code;
+
+  code = await prettier.format(code, {
+    parser: "typescript",
+    plugins: [typescript, estree],
+  });
+
+  return await saveIntoDirectory(directory + "/page.tsx", code);
+}
+
+function getComponentDirectory() {
+  return "app/" + window.location.pathname.replaceAll(/^\/|\/$/g, "");
+}
+
+function getImageCode(fileName: string) {
+  const importName = fileName.replaceAll(/\..*/g, "").replaceAll(/\W/g, "");
+  return {
+    import: `import ${importName} from ${JSON.stringify("./" + fileName)};`,
+    code: `<Image alt="" src={${importName}} data-filename=${JSON.stringify(fileName)} />`,
+  };
 }
 
 function getComponentCode(editor: HTMLElement) {
@@ -209,7 +304,6 @@ function getComponentCode(editor: HTMLElement) {
   }
 
   const ComponentPrefix = `
-/* eslint-disable @next/next/no-img-element */
 
 const page: React.FC<unknown> = () => {
   return (

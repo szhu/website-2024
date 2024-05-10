@@ -1,12 +1,10 @@
 "use client";
 
+import mimeTypes from "mime-types";
+
 let saveDirectory: FileSystemDirectoryHandle | undefined;
 
-export async function saveIntoDirectory(
-  testThatSubdirectoryExists: string,
-  path: string,
-  content: string,
-) {
+export async function setSaveDirectory(testThatSubdirectoryExists: string) {
   while (saveDirectory == null) {
     try {
       saveDirectory = await window.showDirectoryPicker({ mode: "readwrite" });
@@ -18,9 +16,17 @@ export async function saveIntoDirectory(
     try {
       await saveDirectory.getDirectoryHandle(testThatSubdirectoryExists);
     } catch {
-      window.alert("Incorrect folder.");
+      window.alert("Incorrect folder selected. Try again.");
       saveDirectory = undefined;
     }
+  }
+
+  return true;
+}
+
+export async function saveIntoDirectory(path: string, content: string | Blob) {
+  if (saveDirectory == null) {
+    return false;
   }
 
   const fileHandle = //
@@ -67,4 +73,44 @@ async function getNested(
     current = await current.getDirectoryHandle(part, { create });
   }
   return current;
+}
+
+async function getHashFromBlob(blob: Blob) {
+  // https://stackoverflow.com/a/61823010/782045
+  const buffer = await blob.arrayBuffer();
+  const digest = await crypto.subtle.digest("SHA-256", buffer);
+
+  // https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest#converting_a_digest_to_a_hex_string
+  const hash = [...new Uint8Array(digest)]
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+  return hash;
+}
+
+export async function saveBlobByHash(
+  directoryName: string,
+  fileNamePrefix: string,
+  blob: Blob,
+) {
+  const autoExtension = mimeTypes.extension(blob.type);
+  const extension = typeof autoExtension === "string" ? autoExtension : "bin";
+  const hash = await getHashFromBlob(blob);
+  const fileName = `${fileNamePrefix}${hash.slice(0, 16)}.${extension}`;
+  const path = `${directoryName}/${fileName}`;
+
+  if (await saveIntoDirectory(path, blob)) {
+    return fileName;
+  }
+}
+
+export async function getBlobFromImg(
+  img: HTMLImageElement,
+): Promise<Blob | undefined> {
+  try {
+    const response = await window.fetch(img.src);
+    const blob = await response.blob();
+    return blob;
+  } catch {
+    return;
+  }
 }

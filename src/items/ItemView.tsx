@@ -36,7 +36,13 @@ const ItemView: React.FC<{
       <div className="grow" />
       <div className="w-[700px] max-w-full shrink-0">
         {isEditing ? (
-          <ItemEditor>{props.children}</ItemEditor>
+          <ItemEditor
+            onExit={() => {
+              setIsEditing(false);
+            }}
+          >
+            {props.children}
+          </ItemEditor>
         ) : (
           <div className="contents [&>p+p]:my-8">{props.children}</div>
         )}

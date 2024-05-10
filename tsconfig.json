@@ -21,7 +21,7 @@
     "strict": true,
     "target": "es2015"
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", ".next"],
   "include": [
     "**/*.js",
     "**/*.jsx",

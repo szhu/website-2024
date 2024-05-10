@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import getDataUrlFromFile from "../extends/file/getDataUrlFromFile";
 import { insertNodesAt } from "../items/DomManipulation";
@@ -24,6 +24,8 @@ const ContentEditable: React.FC<{
   const isHydrated = useIsHydrated();
 
   const [isDraggedOver, setIsDraggedOver] = useState(false);
+
+  const initialChildren = useMemo(() => props.children, []);
 
   return (
     <div
@@ -103,7 +105,7 @@ const ContentEditable: React.FC<{
         props.onUpdate?.(event.currentTarget);
       }}
     >
-      {props.children}
+      {initialChildren}
     </div>
   );
 };
