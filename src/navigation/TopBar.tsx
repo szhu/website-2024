@@ -35,7 +35,7 @@ const TopBar: React.FC<unknown> = () => {
         isOneLevelIn && "sm:invisible sm:opacity-0",
       )}
     >
-      <div className="mx-auto flex max-w-[1500px] flex-row items-center gap-4">
+      <div className="mx-auto flex min-h-10 max-w-[1500px] flex-row items-center gap-4 sm:min-h-0 hover-supported:min-h-0">
         <Link href="/" className={twMerge("font-bold")}>
           {SiteTitle}
         </Link>
