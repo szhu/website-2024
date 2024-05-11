@@ -1,6 +1,6 @@
-import prettier from "prettier";
 import estree from "prettier/plugins/estree";
 import typescript from "prettier/plugins/typescript";
+import * as prettier from "prettier/standalone";
 import { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import ContentEditable from "../debug/ContentEditable";
