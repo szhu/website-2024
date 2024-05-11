@@ -60,7 +60,6 @@ const ItemEditor: React.FC<{
             const els = target.querySelectorAll(":not(p,img,br)");
             for (const element of els) {
               const computedStyle = window.getComputedStyle(element);
-              console.log(element, computedStyle.display);
 
               // This removes <script> and <style> tags too.
               if (
@@ -188,6 +187,7 @@ const ItemEditor: React.FC<{
             const didSave = await save(directory, editorRef.current);
             if (didSave) {
               setSavedAt(new Date());
+              props.onExit?.();
             }
           }}
         >
