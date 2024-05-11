@@ -59,6 +59,17 @@ const ItemEditor: React.FC<{
             // Unwrap all <div> and <span>
             const els = target.querySelectorAll(":not(p,img,br)");
             for (const element of els) {
+              const computedStyle = window.getComputedStyle(element);
+              console.log(element, computedStyle.display);
+
+              // This removes <script> and <style> tags too.
+              if (
+                computedStyle.display === "none" ||
+                computedStyle.visibility === "hidden"
+              ) {
+                element.remove();
+              }
+
               unwrapElement(element);
             }
           }
@@ -191,6 +202,8 @@ const ItemEditor: React.FC<{
           </code>{" "}
         </button>
 
+        <div className="grow" />
+
         {props.onExit && (
           <button
             className="my-2 rounded-md border-1 border-black px-4 py-2 dark:border-white"
@@ -214,7 +227,7 @@ async function save(directory: string, originalNode: HTMLElement) {
   const node = originalNode.cloneNode(true) as HTMLElement;
 
   const placeholderPrefix = Math.random().toString().replaceAll(".", "");
-  const placeholdersuffix = Math.random().toString().replaceAll(".", "");
+  const placeholderSuffix = Math.random().toString().replaceAll(".", "");
 
   let fileName;
   for (const img of node.querySelectorAll(`img`)) {
@@ -237,7 +250,7 @@ async function save(directory: string, originalNode: HTMLElement) {
     if (fileName) {
       img.replaceWith(
         document.createTextNode(
-          placeholderPrefix + encodeURIComponent(fileName) + placeholdersuffix,
+          placeholderPrefix + encodeURIComponent(fileName) + placeholderSuffix,
         ),
       );
     }
@@ -248,8 +261,9 @@ async function save(directory: string, originalNode: HTMLElement) {
   let imports: string[] = [];
 
   code = code.replaceAll(
-    new RegExp(placeholderPrefix + "(.*?)" + placeholdersuffix, "g"),
-    (_, fileName) => {
+    new RegExp(placeholderPrefix + "(.*?)" + placeholderSuffix, "g"),
+    (_, encodedFileName) => {
+      const fileName = decodeURIComponent(encodedFileName);
       const imageCode = getImageCode(fileName);
 
       imports.push(imageCode.import);
