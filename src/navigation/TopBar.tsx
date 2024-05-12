@@ -2,14 +2,14 @@ import Link from "next/link";
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 import Disabled from "../debug/Disabled";
-import CategoryData from "../listings/CategoryData";
+import RootData from "../listings/RootData";
 import SiteTitle from "../listings/SiteTitle";
 import { useNavContext } from "./NavContext";
 
-function getCategory(categoryId: keyof typeof CategoryData | undefined) {
+function getCategory(categoryId: keyof typeof RootData | undefined) {
   return categoryId == null
     ? undefined
-    : { ...CategoryData[categoryId], id: categoryId };
+    : { ...RootData[categoryId], id: categoryId };
 }
 
 const TopBar: React.FC<unknown> = () => {

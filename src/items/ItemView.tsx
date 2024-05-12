@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useDidPropChangeAcrossRoutes } from "../extends/next/TrackPropsAcrossRoutes";
+import WorkData from "../listings/WorkData";
 import { useNavContext } from "../navigation/NavContext";
 import ItemEditor from "./ItemEditor";
 
@@ -19,6 +20,20 @@ const ItemView: React.FC<{
     return null;
   }
 
+  let infoCard;
+  if (nav.categoryId === "work") {
+    const item = WorkData[nav.itemId];
+    if (item) {
+      infoCard = (
+        <div className="flex flex-col gap-1">
+          <div className="font-bold">{item.organization}</div>
+          <div>{item.role}</div>
+          <div>{item.when}</div>
+        </div>
+      );
+    }
+  }
+
   return (
     <div
       key={nav.itemId}
@@ -35,6 +50,7 @@ const ItemView: React.FC<{
     >
       <div className="grow" />
       <div className="w-[700px] max-w-full shrink-0">
+        {infoCard}
         {isEditing ? (
           <ItemEditor
             onExit={() => {

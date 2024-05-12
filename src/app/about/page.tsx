@@ -13,8 +13,7 @@ const page: React.FC<unknown> = () => {
           title="Hi there! It’s 4:22 AM in New York."
         />
       </p>
-      <p>Hi, I’m Sean.</p>
-      <p>I’m a software engineer and aspiring designer.</p>
+      <p>Hi, I’m Sean. I’m a software engineer and aspiring designer.</p>
       <p>
         I want to create tools that enable people to do more of what they want
         to do.
@@ -23,12 +22,6 @@ const page: React.FC<unknown> = () => {
         I want what I make to be useful for the general public, especially for
         people historically underserved by tech.
       </p>
-      <p>
-        I’ll use this website to post things I’m working on or things I think
-        about. It currently looks empty — no content is browsable from the home
-        page right now.
-      </p>
-      <p>For inquiries, please email me at hello@szhu.me.</p>
     </>
   );
 };

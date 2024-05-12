@@ -18,6 +18,6 @@ html {
   }
 }
 
-:has(> div > h1.next-error-h1) {
+:not(body) > :has(> div > h1.next-error-h1) {
   height: auto !important;
 }

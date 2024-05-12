@@ -1,9 +1,9 @@
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import PageLink from "../navigation/PageLink";
-import { WorkHistoryData } from "./WorkHistoryData";
+import WorkData from "./WorkData";
 
-const WorkHistoryView: React.FC<{
+const WorkView: React.FC<{
   className?: string;
   children?: React.ReactNode;
 }> = (props) => {
@@ -25,16 +25,12 @@ const WorkHistoryView: React.FC<{
     >
       <div className="grow" />
 
-      {WorkHistoryData.map((item, index) => {
-        // const href = `https://${item.domain}`;
-
+      {Object.entries(WorkData).map(([, item]) => {
         return (
           <PageLink
-            key={index}
+            key={item.id}
             href={"/work/" + item.id}
             className="block rounded-md py-2"
-            scroll={false}
-            shallow
           >
             <div className="font-bold">{item.organization}</div>
             <div>{item.role}</div>
@@ -47,4 +43,4 @@ const WorkHistoryView: React.FC<{
   );
 };
 
-export default WorkHistoryView;
+export default WorkView;

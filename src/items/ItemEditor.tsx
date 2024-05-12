@@ -290,7 +290,13 @@ async function save(directory: string, originalNode: HTMLElement) {
 }
 
 function getComponentDirectory() {
-  return "app/" + window.location.pathname.replaceAll(/^\/|\/$/g, "");
+  const pathParts = window.location.pathname.split("/").filter(Boolean);
+
+  if (pathParts.length > 1) {
+    pathParts[0] = "[categoryId]";
+  }
+
+  return ["app", ...pathParts].join("/");
 }
 
 function getImageCode(fileName: string) {

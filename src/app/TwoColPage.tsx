@@ -3,14 +3,16 @@ import disabled from "../debug/Disabled";
 import { useDidPropChangeAcrossRoutes } from "../extends/next/TrackPropsAcrossRoutes";
 import BlankView from "../items/BlankView";
 import ItemView from "../items/ItemView";
+import ProjectsView from "../listings/ProjectsView";
 import RootView from "../listings/RootView";
-import WorkHistoryView from "../listings/WorkHistoryView";
+import WorkView from "../listings/WorkView";
 import TopBar from "../navigation/TopBar";
 
 const TwoColPagesById = {
   blank: BlankView,
   root: RootView,
-  work: WorkHistoryView,
+  work: WorkView,
+  projects: ProjectsView,
   item: ItemView,
 };
 

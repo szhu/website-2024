@@ -1,7 +1,8 @@
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import PageLink from "../navigation/PageLink";
-import CategoryData from "./CategoryData";
+import RootData from "./RootData";
 import SiteTitle from "./SiteTitle";
 
 const RootView: React.FC<{
@@ -26,9 +27,11 @@ const RootView: React.FC<{
     >
       <div className="grow" />
       <div className="flex w-[250px] max-w-full flex-col gap-2">
-        <h1 className="text-4xl font-bold">{SiteTitle}</h1>
+        <Link href="/" className="text-4xl font-bold">
+          {SiteTitle}
+        </Link>
         <div className="text-2xl">
-          {Object.entries(CategoryData).map(([id, category]) => (
+          {Object.entries(RootData).map(([id, category]) => (
             <PageLink
               key={id}
               className="block rounded-md py-1"

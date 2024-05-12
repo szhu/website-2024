@@ -2,11 +2,10 @@
 import { usePathname } from "next/navigation";
 import React, { useContext } from "react";
 import UnknownString from "../extends/typescript/UnknownString";
-import CategoryData from "../listings/CategoryData";
 
 type NavState = {
   isRoot?: true;
-  categoryId?: keyof typeof CategoryData;
+  categoryId?: "work" | "projects";
   isCategory?: true;
   itemId?: string | UnknownString;
 };
@@ -17,7 +16,8 @@ function useNavState(): NavState {
 
   parts.shift();
 
-  switch (parts.shift()) {
+  const categoryId = parts.shift();
+  switch (categoryId) {
     case undefined:
       return { isRoot: true };
 
@@ -30,16 +30,17 @@ function useNavState(): NavState {
           return {};
       }
 
+    case "projects":
     case "work": {
       const itemId = parts.shift();
       switch (itemId) {
         case undefined:
-          return { categoryId: "work", isCategory: true };
+          return { categoryId, isCategory: true };
 
         default:
           switch (parts.shift()) {
             case undefined:
-              return { categoryId: "work", itemId };
+              return { categoryId, itemId };
 
             default:
               return {};

@@ -1,4 +1,4 @@
-const CategoryData = {
+const RootData = {
   // design: {
   //   name: "design",
   // },
@@ -17,9 +17,12 @@ const CategoryData = {
   about: {
     name: "about",
   },
+  projects: {
+    name: "projects",
+  },
   work: {
     name: "work history",
   },
 };
 
-export default CategoryData;
+export default RootData;
