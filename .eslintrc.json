@@ -41,8 +41,9 @@
       }
     ],
     "@typescript-eslint/no-misused-promises": [
-      "off"
+      "off",
       // Why: It's useful to have async functions as listeners.
+      {}
     ],
     "@typescript-eslint/no-unnecessary-condition": [
       "error",
@@ -234,6 +235,18 @@
       "off"
       // Why: Next.js automatically imports React.
     ],
+    "tailwindcss/classnames-order": [
+      "warn",
+      {
+        "callees": ["twMerge"]
+      }
+    ],
+    "tailwindcss/no-custom-classname": [
+      "warn",
+      {
+        "callees": ["twMerge"]
+      }
+    ],
     "unicorn/filename-case": [
       "error",
       {
@@ -254,10 +267,20 @@
       {
         "allowList": {
           "args": true,
+          "params": true,
           "prev": true,
-          "props": true
-        }
+          "props": true,
+          "ref": true,
+          "src": true
+        },
+        "ignore": [
+          "Refs?($|[A-Z])",
+          "Props?($|[A-Z])",
+          "Params?($|[A-Z])",
+          "\\de\\d"
+        ]
       }
-    ]
+    ],
+    "unicorn/switch-case-braces": ["error", "avoid"]
   }
 }

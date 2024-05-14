@@ -1,0 +1,18 @@
+{
+  "tasks": [
+    {
+      "command": "nmg mount; screen bun dev",
+      "label": "Start",
+      "presentation": {
+        "panel": "shared",
+        "reveal": "silent"
+      },
+      "runOptions": {
+        "instanceLimit": 1,
+        "runOn": "folderOpen"
+      },
+      "type": "shell"
+    }
+  ],
+  "version": "2.0.0"
+}
