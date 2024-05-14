@@ -6,6 +6,7 @@ import { useNavContext } from "../navigation/NavContext";
 import ItemEditor from "./ItemEditor";
 
 export const ReadingStyle = twMerge(
+  "text-sm",
   "[&>:is(p,hr,details)]:my-6",
   "[&>details>summary]:my-6 [&>details>summary]:cursor-pointer",
   "[&>details[open]>:not(summary)]:transition-opacity [&>details[open]>:not(summary)]:duration-1000 [&>details[open]>:not(summary)]:ease-out",

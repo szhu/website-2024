@@ -11,7 +11,7 @@ const WorkView: React.FC<{
   return (
     <div
       className={twMerge(
-        "max-w-[450px] grow flex-col gap-0.5 overflow-y-auto px-4 py-6",
+        "max-w-[450px] grow flex-col gap-2 overflow-y-auto px-4 py-6",
         props.className,
       )}
       onClick={(event) => {
@@ -33,9 +33,9 @@ const WorkView: React.FC<{
             href={"https://" + item.domain}
             className="block rounded-md py-2"
           >
-            <div className="font-bold">{item.organization}</div>
-            <div>{item.role}</div>
-            <div>{item.when}</div>
+            <div className="text-sm font-bold">{item.organization}</div>
+            <div className="text-sm">{item.role}</div>
+            <div className="text-sm">{item.when}</div>
           </a>
         );
       })}
