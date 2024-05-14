@@ -52,17 +52,19 @@ const ProjectsView: React.FC<{
                 </span>
               </div>
               <span className="font-bold">{item.name}</span>{" "}
-              <span
-                className={twMerge(
-                  "inline-block rounded-sm border-1 border-gray-200/20 bg-gray-400/10 px-1 py-0.5 text-sm text-gray-600 transition-colors delay-1000 duration-200",
-                  `[:has([data-type="developerTool"]:hover)>[data-type="developerTool"]_&]:bg-amber-100`,
-                  `[:has([data-type="chromeExtension"]:hover)>[data-type="chromeExtension"]_&]:bg-amber-100`,
-                  `[:has([data-type="webApp"]:hover)>[data-type="webApp"]_&]:bg-amber-100`,
-                  `[:has([data-type="googleAppsScript"]:hover)>[data-type="googleAppsScript"]_&]:bg-amber-100`,
-                )}
-              >
-                {item.codeType === "Other" ? null : item.codeType}
-              </span>
+              {item.codeType === "Other" ? null : (
+                <span
+                  className={twMerge(
+                    "inline-block rounded-sm border-1 border-gray-200/20 bg-gray-400/10 px-1 py-0.5 text-sm text-gray-600 transition-colors delay-1000 duration-200",
+                    `[:has([data-type="developerTool"]:hover)>[data-type="developerTool"]_&]:bg-amber-100`,
+                    `[:has([data-type="chromeExtension"]:hover)>[data-type="chromeExtension"]_&]:bg-amber-100`,
+                    `[:has([data-type="webApp"]:hover)>[data-type="webApp"]_&]:bg-amber-100`,
+                    `[:has([data-type="googleAppsScript"]:hover)>[data-type="googleAppsScript"]_&]:bg-amber-100`,
+                  )}
+                >
+                  {item.codeType}
+                </span>
+              )}
             </div>
             <div>{item.description}</div>
           </a>
