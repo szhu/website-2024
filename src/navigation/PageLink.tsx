@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
 export const LinkStyle =
-  "relative transition-opacity duration-200 hover-supported:hover:opacity-50";
+  "relative transition-opacity duration-200 hover-supported:hover:opacity-60";
 
 const PageLink: React.FC<Partial<React.ComponentProps<typeof Link>>> = (
   props,
