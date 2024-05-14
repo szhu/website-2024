@@ -29,7 +29,7 @@ const ItemEditor: React.FC<{
         editorRef={editorRef}
         className={twMerge(
           "min-h-40 border-collapse whitespace-pre-wrap rounded-md border-1 border-black p-1 dark:border-white",
-          "[&>p+p]:border-t-0 [&>p:first-child]:border-t-0 [&>p:last-child]:border-b-0 [&>p]:border-y-1 [&>p]:border-gray-500 [&>p]:py-2",
+          "[&>p+p]:border-t-0 [&>p:first-child]:border-t-0 [&>p:last-child]:border-b-0 [&>p]:border-y-1 [&>p]:border-zinc-500 [&>p]:py-2",
           "[&>p:has(>img)]:px-6 [&>p>img]:mx-auto [&>p>img]:size-auto [&>p>img]:max-h-72 [&>p>img]:cursor-pointer [&>p>img]:px-1 [&>p]:border-y-1",
         )}
         onClick={(event) => {

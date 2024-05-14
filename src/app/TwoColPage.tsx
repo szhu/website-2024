@@ -38,7 +38,7 @@ const TwoColPage: React.FC<{
   const smShownClassName = "hidden sm:flex";
 
   return (
-    <div className="flex min-h-dvh shrink-0 flex-col-reverse text-black sm:h-dvh sm:flex-col sm:overflow-y-hidden hover-supported:flex-col dark:text-gray-200">
+    <div className="flex min-h-dvh shrink-0 flex-col-reverse text-black sm:h-dvh sm:flex-col sm:overflow-y-hidden hover-supported:flex-col dark:text-zinc-200">
       <header className="contents">
         <TopBar />
       </header>
@@ -73,7 +73,7 @@ const TwoColPage: React.FC<{
       </main>
 
       {Disabled && (
-        <footer className="sticky bottom-0 flex flex-row gap-2 border-t-1 border-gray-300 bg-white p-2 dark:border-gray-700 dark:bg-black" />
+        <footer className="sticky bottom-0 flex flex-row gap-2 border-t-1 border-zinc-300 bg-white p-2 dark:border-zinc-700 dark:bg-black" />
       )}
     </div>
   );
