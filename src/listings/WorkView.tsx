@@ -34,7 +34,7 @@ const WorkView: ColPageFC = (props) => {
               href={"https://" + item.domain}
               className="block rounded-md py-3"
             >
-              <div className="text-xs text-gray-500/60">{item.when}</div>
+              <div className="text-xs text-zinc-500/60">{item.when}</div>
               <div className="text-sm font-bold">{item.organization}</div>
               <div className="text-sm">{item.role}</div>
               {Disabled && <div className="text-sm">{item.when}</div>}

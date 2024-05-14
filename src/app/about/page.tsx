@@ -12,7 +12,7 @@ const ContactButton: React.FC<{
     <span className="block text-right">
       <a
         href={props.href}
-        className="mx-2 cursor-pointer text-xs text-gray-400"
+        className="mx-2 cursor-pointer text-xs text-zinc-400"
       >
         Reach out ▸
       </a>
@@ -112,7 +112,7 @@ const page: React.FC<unknown> = () => {
             incoming mail and the worst I can do is say no.{" "}
             <ContactButton href="mailto:hello+33517a@szhu.me" />
           </p>
-          <p className="text-xs text-gray-400">Last updated 2024-05-13.</p>
+          <p className="text-xs text-zinc-400">Last updated 2024-05-13.</p>
         </div>
       </details>
     </>

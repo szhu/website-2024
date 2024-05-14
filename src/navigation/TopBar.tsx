@@ -27,9 +27,9 @@ const TopBar: React.FC<unknown> = () => {
     <div
       className={twMerge(
         "sm:hidden",
-        "shrink-0 overflow-x-auto border-gray-300 px-4 py-2 pt-3 backdrop-blur-sm dark:border-gray-700",
+        "shrink-0 overflow-x-auto border-zinc-300 px-4 py-2 pt-3 backdrop-blur-sm dark:border-zinc-700",
         "sticky bottom-0 z-10 sm:bottom-auto sm:top-0 hover-supported:top-0",
-        "bg-gray-100/70 sm:bg-white/80 hover-supported:bg-white/80 dark:bg-gray-800/70 sm:dark:bg-black/80 hover-supported:dark:bg-black/80",
+        "bg-zinc-100/70 sm:bg-white/80 hover-supported:bg-white/80 dark:bg-zinc-800/70 sm:dark:bg-black/80 hover-supported:dark:bg-black/80",
         "border-t-1 sm:border-b-1 sm:border-t-0 hover-supported:border-b-1 hover-supported:border-t-0",
         "transition-[opacity,visibility] duration-200 sm:delay-1000 sm:duration-1000",
         nav.isRoot && "invisible opacity-0",
@@ -53,7 +53,7 @@ const TopBar: React.FC<unknown> = () => {
         <div className="grow" />
 
         {Disabled && (
-          <a className="rounded bg-gray-800 px-3 py-0.5 text-white">Contact</a>
+          <a className="rounded bg-zinc-800 px-3 py-0.5 text-white">Contact</a>
         )}
       </div>
     </div>
