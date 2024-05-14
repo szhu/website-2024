@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
-import PageLink from "../navigation/PageLink";
+import { LinkStyle } from "../navigation/PageLink";
 import ProjectsData from "./ProjectsData";
 
 const ProjectsView: React.FC<{
@@ -12,7 +12,7 @@ const ProjectsView: React.FC<{
   return (
     <div
       className={twMerge(
-        "max-w-[450px] grow flex-col gap-0.5 overflow-y-auto px-4 py-6",
+        "max-w-[500px] grow flex-col gap-0.5 overflow-y-auto px-4 py-12",
         props.className,
       )}
       onClick={(event) => {
@@ -25,17 +25,33 @@ const ProjectsView: React.FC<{
     >
       <div className="grow" />
 
-      {Object.entries(ProjectsData).map(([, item]) => {
+      {Object.entries(ProjectsData).map(([key, item]) => {
+        console.log(item, item.url ?? item.github);
+
         return (
-          <PageLink
-            key={item.id}
-            href={"/projects/" + item.id}
-            className="block rounded-md py-2"
+          <a
+            key={key}
+            target="_blank"
+            rel="noopener noreferrer"
+            href={item.url ?? item.github}
+            className={twMerge(LinkStyle, "block rounded-md py-3")}
           >
-            <div className="font-bold">{item.organization}</div>
-            <div>{item.role}</div>
-            <div>{item.when}</div>
-          </PageLink>
+            <div>
+              <div className="text-sm text-gray-600">
+                {item.when}{" "}
+                {item.usability === "Defunct" ? (
+                  <>— Archived</>
+                ) : item.usability === "WIP" ? (
+                  <>— WIP</>
+                ) : null}
+              </div>
+              <span className="font-bold">{item.name}</span>{" "}
+              <span className="inline-block rounded-sm border-1 border-gray-200/20 bg-gray-400/10 px-1 py-0.5 text-sm text-gray-600">
+                {item.codeType === "Other" ? null : item.codeType}
+              </span>
+            </div>
+            <div>{item.description}</div>
+          </a>
         );
       })}
       <div className="grow" />

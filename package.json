@@ -3,6 +3,7 @@
   "scripts": {
     "build": "next build",
     "dev": "lsof -t -i:12024 -sTCP:LISTEN | xargs kill -9; PORT=12024 next dev",
+    "generate:ProjectsData": "tsx src/listings/ProjectsData.generate.tsx > src/listings/ProjectsData.tsx",
     "lint": "prettier --check . && stylelint . && tsc && eslint .",
     "lint-fix": "stylelint . --fix && eslint . --fix && prettier --write .",
     "prepare": "husky",
@@ -17,8 +18,10 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.1",
     "@types/mime-types": "^2.1.4",
     "@types/node": "^20",
+    "@types/papaparse": "^5.3.14",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/wicg-file-system-access": "^2023.10.5",
@@ -37,7 +40,9 @@
     "eslint-plugin-unicorn": "^51.0.1",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
+    "lodash": "^4.17.21",
     "mime-types": "^2.1.35",
+    "papaparse": "^5.4.1",
     "postcss": "^8.4.38",
     "postcss-styled-syntax": "^0.6.4",
     "prettier": "~3.2.5",
@@ -50,6 +55,7 @@
     "stylelint-config-styled-components": "^0.1.1",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.3",
+    "tsx": "^4.10.2",
     "typescript": "^5",
     "zod": "^3.22.4"
   }

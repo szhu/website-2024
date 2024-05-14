@@ -1,6 +1,5 @@
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
-import PageLink from "../navigation/PageLink";
 import WorkData from "./WorkData";
 
 const WorkView: React.FC<{
@@ -25,17 +24,19 @@ const WorkView: React.FC<{
     >
       <div className="grow" />
 
-      {Object.entries(WorkData).map(([, item]) => {
+      {Object.entries(WorkData).map(([key, item]) => {
         return (
-          <PageLink
-            key={item.id}
-            href={"/work/" + item.id}
+          <a
+            key={key}
+            target="_blank"
+            rel="noopener noreferrer"
+            href={"https://" + item.domain}
             className="block rounded-md py-2"
           >
             <div className="font-bold">{item.organization}</div>
             <div>{item.role}</div>
             <div>{item.when}</div>
-          </PageLink>
+          </a>
         );
       })}
       <div className="grow" />

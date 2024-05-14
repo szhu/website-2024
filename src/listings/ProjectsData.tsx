@@ -1,48 +1,155 @@
-import zod from "zod";
+import { ProjectItem } from "./ProjectsData.generate";
 
-interface ProjectsItem {
-  id: string;
-  organization: string;
-  domain: string;
-  role: string;
-  order: string;
-  when: string;
-}
-
-const ProjectsData: Record<string, ProjectsItem> = Object.fromEntries(
-  `
-mutableai	Mutable.ai	mutable.ai	Lead Frontend Engineer & Designer	2023-06	2023–
-oneschema	OneSchema	oneschema.co	Software Engineer	2022-03	Spring 2022
-contributionlabs	Contribution Labs	mintkudos.xyz	Software Engineer	2021-12	Winter 2021
-nomify	Nomify	www.nommenu.com	Designer & Software Engineer	2021-06	2021–2022
-slab	Slab	slab.com	Software Engineer	2020-10	2020–2021
-otterai	Otter.ai	otter.ai	Software Engineer	2020-09	2020–2021
-recidiviz	Recividiz	www.recidiviz.org	Software Engineer	2020-03	Spring 2023
-affinity	Affinity	affinity.co	Software Engineer	2018-01	2018–2020
-google	Google	google.com	Software Engineer	2016-08	2016–2017
-thedesignexchange	TheDesignExchange	best.berkeley.edu/best-research/thedesignexchange/	Software Engineer	2015-02	2015–2016
-ifttt	IFTTT	ifttt.com	Software Engineer Intern	2014-06	Summer 2014
-dailycal	The Daily Californian	dailycal.org	Software Engineer	2012-09	2012–2015
-tumblr	Tumblr	tumblr.com	Theme Garden Liaison & Software Engineer	2012-07	2012–2015
-globalphilanthropyforum	Global Philanthropy Forum	www.philanthropyforum.org	Software Engineer Intern	2012-05	Summer 2012
-nersc	LBNL/NERSC	lbl.gov	Software Engineer Intern	2011-06	Summer 2011
-`
-    .trim()
-    .split("\n")
-    .map((line) => {
-      const [sId, sOrganization, sDomain, sRole, sOrder, sWhen] =
-        line.split("\t");
-
-      const NonEmptyString = zod.string().min(1);
-      const id = NonEmptyString.parse(sId);
-      const organization = NonEmptyString.parse(sOrganization);
-      const domain = NonEmptyString.parse(sDomain);
-      const role = NonEmptyString.parse(sRole);
-      const order = NonEmptyString.parse(sOrder);
-      const when = NonEmptyString.parse(sWhen);
-
-      return [id, { id, organization, domain, role, order, when }];
-    }),
-);
+const ProjectsData: Record<string, ProjectItem> = {
+  "project-git-uncommitted": {
+    name: "git-uncommitted",
+    id: "git-uncommitted",
+    github: "https://github.com/szhu/git-uncommitted",
+    when: "July 2023",
+    codeType: "Developer Tool",
+    usability: "Ready",
+    description:
+      "A simpler alternative to git stash that works per branch and never results in merge conflicts.",
+  },
+  "project-clipvideo": {
+    name: "ClipVideo",
+    id: "clipvideo",
+    url: "https://clip-video-szhu.vercel.app/",
+    github: "https://github.com/szhu/ClipVideo",
+    when: "June 2023",
+    codeType: "Web App",
+    usability: "Ready",
+    description:
+      "Chop a long video any number of small pieces, adjacent or overlapping or not, extremely precisely.",
+  },
+  "project-lunar-lander-autopilot": {
+    name: "Lunar Lander Game Autopilot",
+    id: "lunar-lander-autopilot",
+    url: "https://szhu.github.io/lunar-lander-autopilot/",
+    github: "https://github.com/szhu/lunar-lander-autopilot",
+    when: "March 2023",
+    codeType: "Web App",
+    usability: "Ready",
+    description: "Watch ~100 lines of JS land man on the moon again.",
+  },
+  "project-nmg": {
+    name: "node_modules disk image",
+    id: "nmg",
+    github: "https://github.com/szhu/nmg",
+    when: "October 2022",
+    codeType: "Developer Tool",
+    usability: "Ready",
+    description:
+      "Mount your node_modules directory as a single file. (macOS only)",
+  },
+  "project-prep-panel": {
+    name: "Prep Panel",
+    id: "prep-panel",
+    github: "https://github.com/szhu/prep-panel",
+    when: "July 2022",
+    codeType: "Developer Tool",
+    usability: "Ready",
+    description: "Quickly batch-apply preferences, for onboarding and more.",
+  },
+  "project-pagefreeze": {
+    name: "Pagefreeze",
+    id: "pagefreeze",
+    github: "https://github.com/szhu/pagefreeze",
+    when: "July 2022",
+    codeType: "Chrome Extension",
+    usability: "Ready",
+    description: "Ban all asynchronous JavaScript on any website.",
+  },
+  "project-gmail-screener": {
+    name: "Gmail Screener",
+    id: "gmail-screener",
+    github: "https://github.com/szhu/gmail-screener",
+    when: "June 2022",
+    codeType: "Google Apps Script",
+    usability: "Ready",
+    description:
+      "Inspired by Hey Email, a filter to prevent unknown senders to reach your inbox by default.",
+  },
+  "project-gmail-drilldown": {
+    name: "Gmail Drilldown",
+    id: "gmail-drilldown",
+    github: "https://gist.github.com/szhu/1d816086307c5de02bc9a2bb1cf01fe0",
+    when: "May 2022",
+    codeType: "Chrome Extension",
+    usability: "Ready",
+    description:
+      "Click any sender or label in Gmail to instantly see all their messages.",
+  },
+  "project-shortcut-manager": {
+    name: "Shortcut manager",
+    id: "shortcut-manager",
+    github: "https://github.com/szhu/hid-shortcut-manager",
+    when: "January 2021",
+    codeType: "Developer Tool",
+    usability: "WIP",
+    description: "A developer-friendly global keyboard shortcuts manager.",
+  },
+  "project-github-prune": {
+    name: "github-prune",
+    id: "github-prune",
+    github: "https://github.com/szhu/github-prune",
+    when: "June 2019",
+    codeType: "Developer Tool",
+    usability: "Ready",
+    description:
+      "Automatically clean up Git branches that have already been merged upstream.",
+  },
+  "project-pushpin": {
+    name: "Pushpin",
+    id: "pushpin",
+    url: "https://chromewebstore.google.com/detail/oeccdogiekfcglkneepeaodoendiikic",
+    github: "https://github.com/szhu/pushpin",
+    when: "March 2017",
+    codeType: "Chrome Extension",
+    usability: "Ready",
+    description:
+      "Keep pinned tabs around even if Chrome automatically closes them.",
+  },
+  "project-facebork": {
+    name: "Facebork",
+    id: "facebork",
+    when: "February 2017",
+    codeType: "Chrome Extension",
+    usability: "Defunct",
+    description:
+      "Prevent distractions on Facebook by replacing every work with “bork”. (Unavailable due to trademark takedown.)",
+  },
+  "project-3030": {
+    name: "%%30%30",
+    id: "3030",
+    url: "https://szhu.github.io/3030/",
+    github: "https://github.com/szhu/3030",
+    when: "September 2015",
+    codeType: "Web App",
+    usability: "Ready",
+    description:
+      "A unique game that exploits the 2015 “link that crashes Chrome” bug.",
+  },
+  "project-batchrename": {
+    name: "batchrename",
+    id: "batchrename",
+    github: "https://github.com/szhu/batchrename",
+    when: "September 2013",
+    codeType: "Developer Tool",
+    usability: "Ready",
+    description:
+      "Batch-rename files using your editor, taking advantage of text-editing shortcuts you’re already familiar with.",
+  },
+  "project-s60": {
+    name: "S60 apps",
+    id: "s60",
+    github: "https://github.com/szhu/s60-sandbox",
+    when: "2006–2008",
+    codeType: "Other",
+    usability: "Defunct",
+    description:
+      "Developer tools and other app explorations on the Symbian S60 mobile OS.",
+  },
+};
 
 export default ProjectsData;

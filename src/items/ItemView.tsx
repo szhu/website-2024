@@ -5,6 +5,14 @@ import WorkData from "../listings/WorkData";
 import { useNavContext } from "../navigation/NavContext";
 import ItemEditor from "./ItemEditor";
 
+export const ReadingStyle = twMerge(
+  "[&>:is(p,hr,details)]:my-6",
+  "[&>details>summary]:my-6 [&>details>summary]:cursor-pointer",
+  "[&>details[open]>:not(summary)]:transition-opacity [&>details[open]>:not(summary)]:duration-1000 [&>details[open]>:not(summary)]:ease-out",
+  "[&>details:not([open])>:not(summary)]:opacity-0",
+  "[&>details[open]>:not(summary)]:opacity-100",
+);
+
 const ItemView: React.FC<{
   className?: string;
   children?: React.ReactNode;
@@ -60,7 +68,9 @@ const ItemView: React.FC<{
             {props.children}
           </ItemEditor>
         ) : (
-          <div className="contents [&>p+p]:my-8">{props.children}</div>
+          <div className={twMerge("contents", ReadingStyle)}>
+            {props.children}
+          </div>
         )}
       </div>
 

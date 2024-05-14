@@ -14,14 +14,20 @@ const RootData = {
   // photography: {
   //   name: "photography",
   // },
-  about: {
-    name: "about",
-  },
+  // apps: {
+  //   name: "apps",
+  // },
   projects: {
     name: "projects",
   },
+  // ideas: {
+  //   name: "free ideas",
+  // },
   work: {
     name: "work history",
+  },
+  about: {
+    name: "about",
   },
 };
 

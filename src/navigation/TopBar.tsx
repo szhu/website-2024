@@ -26,6 +26,7 @@ const TopBar: React.FC<unknown> = () => {
   return (
     <div
       className={twMerge(
+        "sm:hidden",
         "shrink-0 overflow-x-auto border-gray-300 px-3 py-2 pt-3 backdrop-blur-sm dark:border-gray-700",
         "sticky bottom-0 z-10 sm:bottom-auto sm:top-0 hover-supported:top-0",
         "bg-gray-200/40 sm:bg-white/80 hover-supported:bg-white/80 dark:bg-gray-600/40 sm:dark:bg-black/80 hover-supported:dark:bg-black/80",
