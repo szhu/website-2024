@@ -27,8 +27,6 @@ const ProjectsView: React.FC<{
       <div className="grow" />
 
       {Object.entries(ProjectsData).map(([key, item]) => {
-        console.log(item, item.url ?? item.github);
-
         const typeSlug = _.camelCase(item.codeType);
 
         return (

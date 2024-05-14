@@ -1,4 +1,6 @@
 "use client";
+import { useEffect } from "react";
+import SiteTitle from "../listings/SiteTitle";
 import { useNavContext } from "../navigation/NavContext";
 import TwoColPage from "./TwoColPage";
 
@@ -6,6 +8,13 @@ const TwoColRouter: React.FC<{
   children?: React.ReactNode;
 }> = (props) => {
   const nav = useNavContext();
+
+  // Hack! Sometimes it seems like Next.js is unintentionally removing the
+  // <title> tag when navigating between two pages that use the same layout.
+  // Here we add it back.
+  useEffect(() => {
+    document.title = SiteTitle;
+  }, [nav]);
 
   const notFound = props.children;
 
