@@ -2,8 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  display: contents;
+}
+
+html {
+  background-color: white;
+  touch-action: manipulation;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  html {
     color-scheme: dark;
+    background-color: black;
   }
+}
+
+:not(body) > :has(> div > h1.next-error-h1) {
+  height: auto !important;
 }

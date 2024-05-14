@@ -3,7 +3,28 @@
 export default {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
-    extend: {},
+    extend: {
+      borderWidth: {
+        1: "1px",
+      },
+      listStyleType: {
+        bullet: `'• '`,
+      },
+      animation: {
+        "fade-200": "fadeIn 200ms ease-in-out",
+        "fade-500": "fadeIn 500ms ease-in-out",
+      },
+      keyframes: {
+        fadeIn: {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+      },
+      screens: {
+        // https://github.com/tailwindlabs/tailwindcss/discussions/1739#discussioncomment-56282
+        "hover-supported": { raw: "(hover: hover)" },
+      },
+    },
   },
   plugins: [],
 };
