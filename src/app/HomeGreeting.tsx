@@ -14,7 +14,7 @@ function getGreeting() {
 }
 
 export function useGreeting() {
-  const [greeting, setGreeting] = useState<string>(getGreeting);
+  const [greeting, setGreeting] = useState<string>();
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
