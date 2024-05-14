@@ -238,13 +238,15 @@
     "tailwindcss/classnames-order": [
       "warn",
       {
-        "callees": ["twMerge"]
+        "callees": ["twMerge"],
+        "classRegex": "^class(Name)?$|^.+Class(Name)?$"
       }
     ],
     "tailwindcss/no-custom-classname": [
       "warn",
       {
-        "callees": ["twMerge"]
+        "callees": ["twMerge"],
+        "classRegex": "^class(Name)?$|^.+Class(Name)?$"
       }
     ],
     "unicorn/filename-case": [

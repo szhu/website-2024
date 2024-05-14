@@ -9,12 +9,14 @@ const ContactButton: React.FC<{
   href: string;
 }> = (props) => {
   return (
-    <a
-      href={props.href}
-      className="mx-2 inline-block cursor-pointer text-gray-500"
-    >
-      Contact ›
-    </a>
+    <span className="block text-right">
+      <a
+        href={props.href}
+        className="mx-2 cursor-pointer text-xs text-gray-400"
+      >
+        Reach out ▸
+      </a>
+    </span>
   );
 };
 
@@ -48,10 +50,12 @@ const page: React.FC<unknown> = () => {
         often overlooked by mainstream technology.
       </p>
 
-      <hr />
+      <hr className="invisible [:has(details[open])>&]:visible" />
 
-      <details>
-        <summary className="cursor-pointer font-bold">Contact me</summary>
+      <details className="contents">
+        <summary className="contents cursor-pointer font-bold [&::-webkit-details-marker]:hidden">
+          Contact
+        </summary>
 
         <div className={ReadingStyle}>
           <p>
@@ -108,7 +112,7 @@ const page: React.FC<unknown> = () => {
             incoming mail and the worst I can do is say no.{" "}
             <ContactButton href="mailto:hello+33517a@szhu.me" />
           </p>
-          <p className="opacity-60">Last updated 2024-05-13.</p>
+          <p className="text-xs text-gray-400">Last updated 2024-05-13.</p>
         </div>
       </details>
     </>

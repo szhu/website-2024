@@ -1,20 +1,20 @@
 import _ from "lodash";
 import { useRouter } from "next/navigation";
+import Balancer from "react-wrap-balancer";
 import { twMerge } from "tailwind-merge";
+import { ColPageFC } from "../app/TwoColPage";
 import { LinkStyle } from "../navigation/PageLink";
 import ProjectsData from "./ProjectsData";
 
-const ProjectsView: React.FC<{
-  className?: string;
-  children?: React.ReactNode;
-}> = (props) => {
+const ProjectsView: ColPageFC = (props) => {
   const router = useRouter();
 
   return (
     <div
       className={twMerge(
-        "container max-w-[500px] grow flex-col gap-2 overflow-y-auto px-4 py-12",
+        "grow flex-col gap-2 overflow-y-auto",
         props.className,
+        props.marginClassName,
       )}
       onClick={(event) => {
         if (!(event.target instanceof Element)) return;
@@ -26,20 +26,20 @@ const ProjectsView: React.FC<{
     >
       <div className="grow" />
 
-      {Object.entries(ProjectsData).map(([key, item]) => {
-        const typeSlug = _.camelCase(item.codeType);
+      <div className="container w-[350px] max-w-full">
+        {Object.entries(ProjectsData).map(([key, item]) => {
+          const typeSlug = _.camelCase(item.codeType);
 
-        return (
-          <a
-            key={key}
-            target="_blank"
-            rel="noopener noreferrer"
-            href={item.url ?? item.github}
-            data-type={typeSlug}
-            className={twMerge(LinkStyle, "group block rounded-md py-3")}
-          >
-            <div>
-              <div className="text-xs text-gray-600">
+          return (
+            <a
+              key={key}
+              target="_blank"
+              rel="noopener noreferrer"
+              href={item.url ?? item.github}
+              data-type={typeSlug}
+              className={twMerge(LinkStyle, "group block rounded-md py-3")}
+            >
+              <div className="text-xs text-gray-500/60">
                 {item.when}{" "}
                 <span className="transition-opacity duration-200 group-hover:opacity-100 hover-supported:opacity-0">
                   {item.usability === "Defunct" ? (
@@ -49,25 +49,30 @@ const ProjectsView: React.FC<{
                   ) : null}
                 </span>
               </div>
-              <span className="text-sm font-bold">{item.name}</span>{" "}
-              {item.codeType === "Other" ? null : (
-                <span
-                  className={twMerge(
-                    "inline-block rounded-sm border-1 border-gray-200/20 bg-gray-400/10 px-1 py-0.5 text-xs text-gray-600 transition-colors delay-1000 duration-200",
-                    `[:has([data-type="developerTool"]:hover)>[data-type="developerTool"]_&]:bg-amber-100`,
-                    `[:has([data-type="chromeExtension"]:hover)>[data-type="chromeExtension"]_&]:bg-amber-100`,
-                    `[:has([data-type="webApp"]:hover)>[data-type="webApp"]_&]:bg-amber-100`,
-                    `[:has([data-type="googleAppsScript"]:hover)>[data-type="googleAppsScript"]_&]:bg-amber-100`,
-                  )}
-                >
-                  {item.codeType}
-                </span>
-              )}
-            </div>
-            <div className="text-xs">{item.description}</div>
-          </a>
-        );
-      })}
+              <div>
+                <span className="text-sm font-bold">{item.name}</span>{" "}
+                {item.codeType === "Other" ? null : (
+                  <span
+                    className={twMerge(
+                      "inline-block rounded-sm border-1 border-gray-200/20 bg-gray-400/10 px-1 py-0.5 align-middle text-[0.6rem] leading-none text-gray-600 transition-colors delay-1000 duration-200",
+                      `[:has([data-type="developerTool"]:hover)>[data-type="developerTool"]_&]:bg-amber-100`,
+                      `[:has([data-type="chromeExtension"]:hover)>[data-type="chromeExtension"]_&]:bg-amber-100`,
+                      `[:has([data-type="webApp"]:hover)>[data-type="webApp"]_&]:bg-amber-100`,
+                      `[:has([data-type="googleAppsScript"]:hover)>[data-type="googleAppsScript"]_&]:bg-amber-100`,
+                    )}
+                  >
+                    {item.codeType}
+                  </span>
+                )}
+              </div>
+              <div className="text-xs">
+                <Balancer>{item.description}</Balancer>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+
       <div className="grow" />
     </div>
   );

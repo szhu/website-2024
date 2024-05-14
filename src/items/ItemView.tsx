@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { ColPageFC } from "../app/TwoColPage";
 import { useDidPropChangeAcrossRoutes } from "../extends/next/TrackPropsAcrossRoutes";
 import WorkData from "../listings/WorkData";
 import { useNavContext } from "../navigation/NavContext";
@@ -14,10 +15,7 @@ export const ReadingStyle = twMerge(
   "[&>details[open]>:not(summary)]:opacity-100",
 );
 
-const ItemView: React.FC<{
-  className?: string;
-  children?: React.ReactNode;
-}> = (props) => {
+const ItemView: ColPageFC = (props) => {
   const nav = useNavContext();
 
   const [isEditing, setIsEditing] = useState(false);
@@ -47,9 +45,10 @@ const ItemView: React.FC<{
     <div
       key={nav.itemId}
       className={twMerge(
-        "flex grow flex-col overflow-y-auto px-4 py-6 md:pr-12",
+        "flex grow flex-col overflow-y-auto",
         didItemIdChange && "animate-fade-500",
         props.className,
+        props.marginClassName,
       )}
       onDoubleClick={() => {
         if (localStorage.edit === "1") {
@@ -58,7 +57,7 @@ const ItemView: React.FC<{
       }}
     >
       <div className="grow" />
-      <div className="w-[700px] max-w-full shrink-0">
+      <div className="w-[550px] max-w-full shrink-0">
         {infoCard}
         {isEditing ? (
           <ItemEditor

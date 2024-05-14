@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import disabled from "../debug/Disabled";
+import Disabled from "../debug/Disabled";
 import { useDidPropChangeAcrossRoutes } from "../extends/next/TrackPropsAcrossRoutes";
 import BlankView from "../items/BlankView";
 import ItemView from "../items/ItemView";
@@ -7,6 +7,12 @@ import ProjectsView from "../listings/ProjectsView";
 import RootView from "../listings/RootView";
 import WorkView from "../listings/WorkView";
 import TopBar from "../navigation/TopBar";
+
+export type ColPageFC = React.FC<{
+  className?: string;
+  marginClassName?: string;
+  children?: React.ReactNode;
+}>;
 
 const TwoColPagesById = {
   blank: BlankView,
@@ -40,7 +46,7 @@ const TwoColPage: React.FC<{
       <main
         className={twMerge(
           "grow",
-          "flex  flex-col",
+          "flex flex-col",
           "sm:grid sm:grid-cols-2 sm:overflow-y-hidden",
         )}
       >
@@ -48,8 +54,9 @@ const TwoColPage: React.FC<{
           className={twMerge(
             props.sm === "left" ? alwaysShownClassName : smShownClassName,
             didLeftChange ? "animate-fade-500" : "",
-            "sm:items-end",
+            "px-4 py-6 sm:justify-self-end",
           )}
+          marginClassName="xs:mx-6 sm:mx-0 md:mx-4"
         >
           {props.page}
         </Left>
@@ -57,13 +64,15 @@ const TwoColPage: React.FC<{
           className={twMerge(
             props.sm === "right" ? alwaysShownClassName : smShownClassName,
             didRightChange ? "animate-fade-500" : "",
+            "px-4 py-6",
           )}
+          marginClassName="xs:mx-6 sm:mx-0 md:mx-4"
         >
           {props.page}
         </Right>
       </main>
 
-      {disabled && (
+      {Disabled && (
         <footer className="sticky bottom-0 flex flex-row gap-2 border-t-1 border-gray-300 bg-white p-2 dark:border-gray-700 dark:bg-black" />
       )}
     </div>
