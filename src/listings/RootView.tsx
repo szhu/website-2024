@@ -27,10 +27,10 @@ const RootView: React.FC<{
     >
       <div className="grow" />
       <div className="flex w-[250px] max-w-full flex-col gap-2">
-        <Link href="/" className="text-4xl font-bold">
+        <Link href="/" className="text-2xl font-bold">
           {SiteTitle}
         </Link>
-        <div className="text-2xl">
+        <div className="text-lg">
           {Object.entries(RootData).map(([id, category]) => (
             <PageLink
               key={id}
