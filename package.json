@@ -3,6 +3,7 @@
   "scripts": {
     "build": "next build",
     "dev": "lsof -t -i:12024 -sTCP:LISTEN | xargs kill -9; PORT=12024 next dev",
+    "generate:ProjectsData": "tsx src/listings/ProjectsData.generate.tsx > src/listings/ProjectsData.tsx",
     "lint": "prettier --check . && stylelint . && tsc && eslint .",
     "lint-fix": "stylelint . --fix && eslint . --fix && prettier --write .",
     "prepare": "husky",
