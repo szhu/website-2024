@@ -1,21 +1,20 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
+import { ColPageFC } from "../app/TwoColPage";
 import PageLink from "../navigation/PageLink";
 import RootData from "./RootData";
 import SiteTitle from "./SiteTitle";
 
-const RootView: React.FC<{
-  className?: string;
-  children?: React.ReactNode;
-}> = (props) => {
+const RootView: ColPageFC = (props) => {
   const router = useRouter();
 
   return (
     <div
       className={twMerge(
-        "min-h-full grow flex-col items-center overflow-y-auto px-6 py-2",
+        "min-h-full grow flex-col items-center overflow-y-auto",
         props.className,
+        props.marginClassName,
       )}
       onClick={(event) => {
         if (!(event.target instanceof Element)) return;
@@ -26,7 +25,7 @@ const RootView: React.FC<{
       }}
     >
       <div className="grow" />
-      <div className="flex w-[250px] max-w-full flex-col gap-2">
+      <div className="flex w-[200px] max-w-full flex-col gap-2">
         <Link href="/" className="text-2xl font-bold">
           {SiteTitle}
         </Link>
