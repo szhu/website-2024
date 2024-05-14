@@ -22,6 +22,14 @@ const ProjectsData: Record<string, ProjectItem> = {
     description:
       "Chop a long video any number of small pieces, adjacent or overlapping or not, extremely precisely.",
   },
+  "project-b": {
+    name: "???",
+    id: "b",
+    when: "June 2023",
+    codeType: "Web App",
+    usability: "Ready",
+    description: "????",
+  },
   "project-lunar-lander-autopilot": {
     name: "Lunar Lander Game Autopilot",
     id: "lunar-lander-autopilot",
