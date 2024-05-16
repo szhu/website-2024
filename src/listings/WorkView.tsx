@@ -2,8 +2,9 @@ import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { ColPageFC } from "../app/TwoColPage";
 import Disabled from "../debug/Disabled";
-import { LinkStyle } from "../navigation/PageLink";
+import PageLink, { LinkStyle } from "../navigation/PageLink";
 import WorkData from "./WorkData";
+import areLinksToPages from "./areLinksToPages";
 
 const WorkView: ColPageFC = (props) => {
   const router = useRouter();
@@ -25,9 +26,26 @@ const WorkView: ColPageFC = (props) => {
     >
       <div className="grow" />
 
-      <div className="flex w-[450px] max-w-full flex-col gap-6">
+      <div className="flex w-[350px] max-w-full flex-col gap-6">
         {Object.entries(WorkData).map(([key, item]) => {
-          return (
+          const inner = (
+            <>
+              <div className="text-xs text-zinc-500/60">{item.when}</div>
+              <div className="text-sm font-bold">{item.organization}</div>
+              <div className="text-sm">{item.role}</div>
+              {Disabled && <div className="text-sm">{item.when}</div>}
+            </>
+          );
+
+          return areLinksToPages ? (
+            <PageLink
+              key={key}
+              href={"/work/" + item.id}
+              className={twMerge(LinkStyle, "block rounded-md")}
+            >
+              {inner}
+            </PageLink>
+          ) : (
             <a
               key={key}
               target="_blank"
@@ -35,10 +53,7 @@ const WorkView: ColPageFC = (props) => {
               href={"https://" + item.domain}
               className={twMerge(LinkStyle, "block rounded-md")}
             >
-              <div className="text-xs text-zinc-500/60">{item.when}</div>
-              <div className="text-sm font-bold">{item.organization}</div>
-              <div className="text-sm">{item.role}</div>
-              {Disabled && <div className="text-sm">{item.when}</div>}
+              {inner}
             </a>
           );
         })}

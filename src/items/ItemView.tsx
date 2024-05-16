@@ -8,11 +8,10 @@ import ItemEditor from "./ItemEditor";
 
 export const ReadingStyle = twMerge(
   "text-sm",
-  "[&>:is(p,hr,details)]:my-6",
-  "[&>details>summary]:my-6 [&>details>summary]:cursor-pointer",
-  "[&>details[open]>:not(summary)]:transition-opacity [&>details[open]>:not(summary)]:duration-1000 [&>details[open]>:not(summary)]:ease-out",
-  "[&>details:not([open])>:not(summary)]:opacity-0",
-  "[&>details[open]>:not(summary)]:opacity-100",
+  `>p:has(>img:only-child)]:contents [[data-align="center"]&>*]:mx-auto [[data-align="center"]&>p>img:only-child]:mx-auto`,
+  `[&>:not(p:has(>img:only-child))]:w-[450px] [&>:not(p:has(>img:only-child))]:max-w-full`,
+  `[&>:is(p,hr,details)]:my-6 [&>details>summary]:my-6`,
+  `[&>details:not([open])>:not(summary)]:opacity-0 [&>details>summary]:cursor-pointer [&>details[open]>:not(summary)]:opacity-100 [&>details[open]>:not(summary)]:transition-opacity [&>details[open]>:not(summary)]:duration-1000 [&>details[open]>:not(summary)]:ease-out`,
 );
 
 const ItemView: ColPageFC = (props) => {
@@ -57,7 +56,7 @@ const ItemView: ColPageFC = (props) => {
       }}
     >
       <div className="grow" />
-      <div className="w-[550px] max-w-full shrink-0 py-4 sm:py-6">
+      <div className="max-w-full shrink-0 py-4 sm:py-6">
         {infoCard}
         {isEditing ? (
           <ItemEditor
@@ -68,7 +67,10 @@ const ItemView: ColPageFC = (props) => {
             {props.children}
           </ItemEditor>
         ) : (
-          <div className={twMerge("contents", ReadingStyle)}>
+          <div
+            className={twMerge("contents", ReadingStyle)}
+            data-align={props.align}
+          >
             {props.children}
           </div>
         )}

@@ -25,7 +25,7 @@ const RootView: ColPageFC = (props) => {
       }}
     >
       <div className="grow" />
-      <div className="flex w-[200px] max-w-full flex-col gap-2">
+      <div className="flex w-fit max-w-full flex-col gap-2">
         <Link href="/" className="text-2xl font-bold">
           {SiteTitle}
         </Link>
