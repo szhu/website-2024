@@ -54,7 +54,7 @@ const TwoColPage: React.FC<{
           className={twMerge(
             props.sm === "left" ? alwaysShownClassName : smShownClassName,
             didLeftChange ? "animate-fade-500" : "",
-            "px-4 py-6 sm:justify-self-end",
+            "px-4 py-6 sm:items-end",
           )}
           marginClassName="xs:mx-6 sm:mx-0 md:mx-4"
         >
