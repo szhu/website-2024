@@ -10,6 +10,21 @@ body {
 html {
   background-color: white;
   touch-action: manipulation;
+
+  /* Width over each breakpoint: */
+  --wo-2xs: calc(100vw - 320px);
+  --wo-xs: calc(100vw - 480px);
+  --wo-sm: calc(100vw - 640px);
+  --wo-md: calc(100vw - 768px);
+  --wo-lg: calc(100vw - 1024px);
+  --wo-xl: calc(100vw - 1280px);
+
+  /* Fraction towards breakpoint: */
+  --wf-xs: clamp(0, calc((100vw - 320px) / (480px - 320px)), 1);
+  --wf-sm: clamp(0, calc((100vw - 480px) / (640px - 480px)), 1);
+  --wf-md: clamp(0, calc((100vw - 640px) / (768px - 640px)), 1);
+  --wf-lg: clamp(0, calc((100vw - 768px) / (1024px - 768px)), 1);
+  --wf-xl: clamp(0, calc((100vw - 1024px) / (1280px - 1024px)), 1);
 }
 
 @media (prefers-color-scheme: dark) {

@@ -52,32 +52,34 @@ const TwoColPage: React.FC<{
         className={twMerge(
           "grow",
           "flex flex-col",
-          "sm:grid sm:grid-cols-[0px,1fr,50%] sm:overflow-y-hidden",
+          "sm:grid sm:overflow-y-hidden",
           isTransitioningIsLeftWide &&
             "transition-[grid-template-columns] duration-500 ease-in-out",
-          isLeftWide && "xl:grid-cols-[calc(250px+6vw),1fr,calc(250px+6vw)]",
+          isLeftWide
+            ? "sm:grid-cols-[0px,1fr,calc(200px+var(--wo-sm)*0.3)] xl:grid-cols-[calc(200px+var(--wo-xl)*0.3),1fr,calc(200px+var(--wo-xl)*0.3)]"
+            : "sm:grid-cols-[0px,1fr,50%]",
         )}
       >
         <div />
         <Left
           className={twMerge(
+            "max-w-full px-[3vw] py-6 xs:px-4 sm:items-end",
             props.sm === "left" ? alwaysShownClassName : smShownClassName,
             didLeftChange ? "animate-fade-500" : "",
-            "px-4 py-6 sm:items-end",
             isLeftWide && "xl:items-center",
           )}
-          marginClassName="xs:mx-6 sm:mx-0 md:mx-4"
+          marginClassName="mx-auto sm:mx-4"
           align="center"
         >
           {props.page}
         </Left>
         <Right
           className={twMerge(
+            "max-w-full px-[3vw] py-6 xs:px-4 sm:items-start",
             props.sm === "right" ? alwaysShownClassName : smShownClassName,
             didRightChange ? "animate-fade-500" : "",
-            "px-4 py-6 sm:items-start",
           )}
-          marginClassName="xs:mx-6 sm:mx-0 md:mx-4"
+          marginClassName="mx-auto sm:mx-4"
           align="left"
         >
           {props.page}
