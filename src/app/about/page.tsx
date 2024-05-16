@@ -52,7 +52,7 @@ const page: React.FC<unknown> = () => {
 
       <hr className="invisible [:has(details[open])>&]:visible" />
 
-      <details className="contents">
+      <details>
         <summary className="contents cursor-pointer font-bold [&::-webkit-details-marker]:hidden">
           Contact
         </summary>
