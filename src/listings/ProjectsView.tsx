@@ -12,7 +12,7 @@ const ProjectsView: ColPageFC = (props) => {
   return (
     <div
       className={twMerge(
-        "grow flex-col gap-2 overflow-y-auto",
+        "grow flex-col overflow-y-auto",
         props.className,
         props.marginClassName,
       )}
@@ -26,7 +26,7 @@ const ProjectsView: ColPageFC = (props) => {
     >
       <div className="grow" />
 
-      <div className="container w-[350px] max-w-full">
+      <div className="container flex w-[350px] max-w-full flex-col gap-6">
         {Object.entries(ProjectsData).map(([key, item]) => {
           const typeSlug = _.camelCase(item.codeType);
 
@@ -37,7 +37,7 @@ const ProjectsView: ColPageFC = (props) => {
               rel="noopener noreferrer"
               href={item.url ?? item.github}
               data-type={typeSlug}
-              className={twMerge(LinkStyle, "group block rounded-md py-3")}
+              className={twMerge(LinkStyle, "group block rounded-md")}
             >
               <div className="text-xs text-zinc-500/60">
                 {item.when}{" "}
