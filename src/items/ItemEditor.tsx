@@ -57,7 +57,7 @@ const ItemEditor: React.FC<{
 
           {
             // Unwrap all <div> and <span>
-            const els = target.querySelectorAll(":not(p,img,br)");
+            const els = target.querySelectorAll(":not(p,img,br,b,i,u)");
             for (const element of els) {
               const computedStyle = window.getComputedStyle(element);
 

@@ -7,7 +7,7 @@ export function insertNodesAt(range: Range, nodes: Node[]) {
 
 function compareElementPositionToCaret(element: Node): number | undefined {
   const selection = window.getSelection();
-  if (!selection) return undefined;
+  if (!selection || selection.rangeCount === 0) return undefined;
 
   const range = selection.getRangeAt(0);
 
