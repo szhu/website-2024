@@ -2,6 +2,7 @@ import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { ColPageFC } from "../app/TwoColPage";
 import Disabled from "../debug/Disabled";
+import { LinkStyle } from "../navigation/PageLink";
 import WorkData from "./WorkData";
 
 const WorkView: ColPageFC = (props) => {
@@ -10,7 +11,7 @@ const WorkView: ColPageFC = (props) => {
   return (
     <div
       className={twMerge(
-        "grow flex-col gap-2 overflow-y-auto",
+        "grow flex-col overflow-y-auto",
         props.className,
         props.marginClassName,
       )}
@@ -24,7 +25,7 @@ const WorkView: ColPageFC = (props) => {
     >
       <div className="grow" />
 
-      <div className="w-[450px] max-w-full">
+      <div className="flex w-[450px] max-w-full flex-col gap-6">
         {Object.entries(WorkData).map(([key, item]) => {
           return (
             <a
@@ -32,7 +33,7 @@ const WorkView: ColPageFC = (props) => {
               target="_blank"
               rel="noopener noreferrer"
               href={"https://" + item.domain}
-              className="block rounded-md py-3"
+              className={twMerge(LinkStyle, "block rounded-md")}
             >
               <div className="text-xs text-zinc-500/60">{item.when}</div>
               <div className="text-sm font-bold">{item.organization}</div>

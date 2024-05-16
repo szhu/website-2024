@@ -32,7 +32,7 @@ const ItemView: ColPageFC = (props) => {
     const item = WorkData[nav.itemId];
     if (item) {
       infoCard = (
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 text-center">
           <div className="font-bold">{item.organization}</div>
           <div>{item.role}</div>
           <div>{item.when}</div>
@@ -57,7 +57,7 @@ const ItemView: ColPageFC = (props) => {
       }}
     >
       <div className="grow" />
-      <div className="w-[550px] max-w-full shrink-0">
+      <div className="w-[550px] max-w-full shrink-0 py-4 sm:py-6">
         {infoCard}
         {isEditing ? (
           <ItemEditor
