@@ -13,7 +13,8 @@ export type ColPageFC = React.FC<{
   className?: string;
   marginClassName?: string;
   children?: React.ReactNode;
-  align: "center" | "left";
+  side: "left" | "right";
+  align: "left" | "center" | "left sm:right" | "left sm:right xl:center";
 }>;
 
 const TwoColPagesById = {
@@ -27,6 +28,7 @@ const TwoColPagesById = {
 const TwoColPage: React.FC<{
   left: keyof typeof TwoColPagesById;
   right: keyof typeof TwoColPagesById;
+  layout: "even" | "left-wide";
   page: React.ReactNode;
   sm: "left" | "right";
 }> = (props) => {
@@ -39,8 +41,7 @@ const TwoColPage: React.FC<{
   const alwaysShownClassName = "flex";
   const smShownClassName = "hidden sm:flex";
 
-  const isLeftWide = props.left === "item";
-  const isTransitioningIsLeftWide = useTransitionTimeout(isLeftWide, 500);
+  const isTransitioningLayout = useTransitionTimeout(props.layout, 500);
 
   return (
     <div className="flex min-h-dvh shrink-0 flex-col-reverse text-black sm:h-dvh sm:flex-col sm:overflow-y-hidden hover-supported:flex-col dark:text-zinc-200">
@@ -50,37 +51,41 @@ const TwoColPage: React.FC<{
 
       <main
         className={twMerge(
-          "grow",
-          "flex flex-col",
+          "flex grow flex-col",
           "sm:grid sm:overflow-y-hidden",
-          isTransitioningIsLeftWide &&
+          props.layout === "left-wide" &&
+            "sm:grid-cols-[0px,1fr,calc(200px+var(--wo-sm)*0.3)] xl:grid-cols-[calc(200px+var(--wo-xl)*0.3),1fr,calc(200px+var(--wo-xl)*0.3)]",
+          props.layout === "even" && "sm:grid-cols-[0px,1fr,50%]",
+          isTransitioningLayout &&
             "transition-[grid-template-columns] duration-500 ease-in-out",
-          isLeftWide
-            ? "sm:grid-cols-[0px,1fr,calc(200px+var(--wo-sm)*0.3)] xl:grid-cols-[calc(200px+var(--wo-xl)*0.3),1fr,calc(200px+var(--wo-xl)*0.3)]"
-            : "sm:grid-cols-[0px,1fr,50%]",
         )}
       >
         <div />
         <Left
+          marginClassName="mx-auto sm:mx-4"
+          align={
+            props.layout === "left-wide"
+              ? "left sm:right xl:center"
+              : "left sm:right"
+          }
           className={twMerge(
-            "max-w-full px-[3vw] py-6 xs:px-4 sm:items-end",
+            "max-w-full px-[3vw] py-6 xs:px-4",
             props.sm === "left" ? alwaysShownClassName : smShownClassName,
             didLeftChange ? "animate-fade-500" : "",
-            isLeftWide && "xl:items-center",
           )}
-          marginClassName="mx-auto sm:mx-4"
-          align="center"
+          side="left"
         >
           {props.page}
         </Left>
         <Right
+          marginClassName="mx-auto sm:mx-4"
+          align="left"
           className={twMerge(
-            "max-w-full px-[3vw] py-6 xs:px-4 sm:items-start",
+            "max-w-full px-[3vw] py-6 xs:px-4",
             props.sm === "right" ? alwaysShownClassName : smShownClassName,
             didRightChange ? "animate-fade-500" : "",
           )}
-          marginClassName="mx-auto sm:mx-4"
-          align="left"
+          side="right"
         >
           {props.page}
         </Right>

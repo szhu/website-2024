@@ -14,6 +14,10 @@ export const ReadingStyle = twMerge(
   `[&>details:not([open])>:not(summary)]:opacity-0 [&>details>summary]:cursor-pointer [&>details[open]>:not(summary)]:opacity-100 [&>details[open]>:not(summary)]:transition-opacity [&>details[open]>:not(summary)]:duration-1000 [&>details[open]>:not(summary)]:ease-out`,
 );
 
+export const CenteredReadingStyle = twMerge(
+  `[&>*]:mx-auto [&>p>img:only-child]:mx-auto`,
+);
+
 const ItemView: ColPageFC = (props) => {
   const nav = useNavContext();
 
@@ -46,6 +50,10 @@ const ItemView: ColPageFC = (props) => {
       className={twMerge(
         "flex grow flex-col overflow-y-auto",
         didItemIdChange && "animate-fade-500",
+        props.align === "left" && "sm:items-start",
+        props.align === "left sm:right" && "sm:items-end",
+        props.align === "left sm:right xl:center" &&
+          "sm:items-end xl:items-center",
         props.className,
         props.marginClassName,
       )}
@@ -68,8 +76,11 @@ const ItemView: ColPageFC = (props) => {
           </ItemEditor>
         ) : (
           <div
-            className={twMerge("contents", ReadingStyle)}
-            data-align={props.align}
+            className={twMerge(
+              "contents",
+              ReadingStyle,
+              props.side === "left" && CenteredReadingStyle,
+            )}
           >
             {props.children}
           </div>

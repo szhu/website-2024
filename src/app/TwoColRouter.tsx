@@ -37,6 +37,7 @@ const TwoColRouter: React.FC<{
   if (nav.itemId != null) {
     return nav.categoryId === "projects" ? (
       <TwoColPage //
+        layout="left-wide"
         left="item"
         right="projects"
         sm="left"
@@ -44,6 +45,7 @@ const TwoColRouter: React.FC<{
       />
     ) : nav.categoryId === "work" ? (
       <TwoColPage //
+        layout="left-wide"
         left="item"
         right="work"
         sm="left"
@@ -51,6 +53,7 @@ const TwoColRouter: React.FC<{
       />
     ) : nav.itemId === "about" ? (
       <TwoColPage //
+        layout="even"
         left="root"
         right="item"
         sm="right"
@@ -64,6 +67,7 @@ const TwoColRouter: React.FC<{
   if (nav.categoryId === "projects") {
     return (
       <TwoColPage //
+        layout="even"
         left="root"
         right="projects"
         sm="right"
@@ -73,6 +77,7 @@ const TwoColRouter: React.FC<{
   } else if (nav.categoryId === "work")
     return (
       <TwoColPage //
+        layout="even"
         left="root"
         right="work"
         sm="right"
@@ -82,7 +87,13 @@ const TwoColRouter: React.FC<{
 
   if (nav.isRoot) {
     return (
-      <TwoColPage left="root" right="blank" sm="left" page={props.children} />
+      <TwoColPage //
+        layout="even"
+        left="root"
+        right="blank"
+        sm="left"
+        page={props.children}
+      />
     );
   }
 
