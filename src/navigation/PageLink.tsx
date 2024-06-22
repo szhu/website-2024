@@ -15,7 +15,7 @@ const PageLink: React.FC<Partial<React.ComponentProps<typeof Link>>> = (
     !isCurrent && props.href != null && LinkStyle,
     props.className,
     isCurrent
-      ? `relative before:absolute before:-left-4 before:bottom-0 before:top-0 before:flex before:items-center before:justify-center before:pt-[0.1em] before:text-[0.6rem] before:leading-none before:content-['▶']`
+      ? `relative before:absolute before:-left-4 before:bottom-0 before:top-0 before:flex before:items-center before:justify-center before:pt-[0.1em] before:text-[0.6rem] before:leading-none before:content-['▶︎']`
       : "",
   );
 
