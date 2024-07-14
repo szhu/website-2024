@@ -9,6 +9,10 @@ import RootView from "../listings/RootView";
 import WorkView from "../listings/WorkView";
 import TopBar from "../navigation/TopBar";
 
+export const TwoColTransitionClassName = twMerge("duration-700 ease-in-out");
+
+export const TwoColTransitionDuration = 700;
+
 export type ColPageFC = React.FC<{
   className?: string;
   marginClassName?: string;
@@ -41,7 +45,10 @@ const TwoColPage: React.FC<{
   const alwaysShownClassName = "flex";
   const smShownClassName = "hidden sm:flex";
 
-  const isTransitioningLayout = useTransitionTimeout(props.layout, 500);
+  const isTransitioningLayout = useTransitionTimeout(
+    props.layout,
+    TwoColTransitionDuration,
+  );
 
   return (
     <div className="flex min-h-dvh shrink-0 flex-col-reverse text-black sm:h-dvh sm:flex-col sm:overflow-y-hidden hover-supported:flex-col dark:text-zinc-200">
@@ -53,12 +60,16 @@ const TwoColPage: React.FC<{
         className={twMerge(
           "flex grow flex-col",
           "sm:grid sm:overflow-y-hidden",
-          props.layout === "left-only" && "sm:grid-cols-[0px,1fr,0px]",
-          props.layout === "left-wide" &&
-            "sm:grid-cols-[0px,1fr,calc(200px+var(--wo-sm)*0.3)] xl:grid-cols-[calc(200px+var(--wo-xl)*0.3),1fr,calc(200px+var(--wo-xl)*0.3)]",
-          props.layout === "even" && "sm:grid-cols-[0px,1fr,50%]",
           isTransitioningLayout &&
-            "transition-[grid-template-columns] duration-500 ease-in-out",
+            twMerge(
+              TwoColTransitionClassName,
+              "transition-[grid-template-columns]",
+            ),
+
+          props.layout === "left-wide" &&
+            "sm:grid-cols-[0,1fr,calc(200px+var(--wo-sm)*0.3)] xl:grid-cols-[calc(200px+var(--wo-xl)*0.3),1fr,calc(200px+var(--wo-xl)*0.3)]",
+          props.layout === "even" && "sm:grid-cols-[0,1fr,50%]",
+          props.layout === "left-only" && "sm:grid-cols-[0,1fr,50%]",
         )}
       >
         <div />
@@ -67,10 +78,15 @@ const TwoColPage: React.FC<{
           align={
             props.layout === "left-wide"
               ? "left sm:right xl:center"
-              : "left sm:right"
+              : props.layout === "even"
+                ? "left sm:right"
+                : "center"
           }
           className={twMerge(
             "max-w-full px-[3vw] py-6 xs:px-4",
+            isTransitioningLayout &&
+              twMerge(TwoColTransitionClassName, "transition-[transform]"),
+            props.layout === "left-only" && "sm:translate-x-1/2 sm:transform",
             props.sm === "left" ? alwaysShownClassName : smShownClassName,
             didLeftChange ? "animate-fade-500" : "",
           )}
