@@ -1,13 +1,23 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
-import { ColPageFC } from "../app/TwoColPage";
+import {
+  ColPageFC,
+  TwoColTransitionClassName,
+  TwoColTransitionDuration,
+} from "../app/TwoColPage";
+import useTransitionTimeout from "../extends/react/useTransitionTimeout";
 import PageLink from "../navigation/PageLink";
 import RootData from "./RootData";
 import SiteTitle from "./SiteTitle";
 
 const RootView: ColPageFC = (props) => {
   const router = useRouter();
+
+  const isTransitioningLayout = useTransitionTimeout(
+    props.align,
+    TwoColTransitionDuration,
+  );
 
   return (
     <div
@@ -28,9 +38,14 @@ const RootView: ColPageFC = (props) => {
       <div
         className={twMerge(
           "flex w-fit max-w-full flex-col gap-2",
+          isTransitioningLayout &&
+            twMerge(TwoColTransitionClassName, "transition-[padding]"),
 
           // Make content appear horizontally centered.
-          "pr-[min(5rem,6vw)]",
+          props.align === "center" && "pr-[min(5rem,6vw)]",
+
+          // Push content slightly to the right when in two-column layout.
+          props.align === "left sm:right" && "pl-[min(5rem,6vw)]",
         )}
       >
         <Link href="/" className="text-2xl font-bold">
