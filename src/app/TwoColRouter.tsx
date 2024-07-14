@@ -88,7 +88,7 @@ const TwoColRouter: React.FC<{
   if (nav.isRoot) {
     return (
       <TwoColPage //
-        layout="even"
+        layout="left-only"
         left="root"
         right="blank"
         sm="left"
