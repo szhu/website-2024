@@ -28,7 +28,7 @@ const TwoColPagesById = {
 const TwoColPage: React.FC<{
   left: keyof typeof TwoColPagesById;
   right: keyof typeof TwoColPagesById;
-  layout: "even" | "left-wide";
+  layout: "even" | "left-wide" | "left-only";
   page: React.ReactNode;
   sm: "left" | "right";
 }> = (props) => {
@@ -53,6 +53,7 @@ const TwoColPage: React.FC<{
         className={twMerge(
           "flex grow flex-col",
           "sm:grid sm:overflow-y-hidden",
+          props.layout === "left-only" && "sm:grid-cols-[0px,1fr,0px]",
           props.layout === "left-wide" &&
             "sm:grid-cols-[0px,1fr,calc(200px+var(--wo-sm)*0.3)] xl:grid-cols-[calc(200px+var(--wo-xl)*0.3),1fr,calc(200px+var(--wo-xl)*0.3)]",
           props.layout === "even" && "sm:grid-cols-[0px,1fr,50%]",

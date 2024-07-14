@@ -13,10 +13,6 @@ const RootView: ColPageFC = (props) => {
     <div
       className={twMerge(
         "min-h-full grow flex-col items-center overflow-y-auto",
-        props.align === "left" && "sm:items-start",
-        props.align === "left sm:right" && "sm:items-end",
-        props.align === "left sm:right xl:center" &&
-          "sm:items-end xl:items-center",
         props.className,
         props.marginClassName,
       )}
