@@ -29,7 +29,14 @@ const RootView: ColPageFC = (props) => {
       }}
     >
       <div className="grow" />
-      <div className="flex w-fit max-w-full flex-col gap-2">
+      <div
+        className={twMerge(
+          "flex w-fit max-w-full flex-col gap-2",
+
+          // Make content appear horizontally centered.
+          "pr-[min(5rem,6vw)]",
+        )}
+      >
         <Link href="/" className="text-2xl font-bold">
           {SiteTitle}
         </Link>
