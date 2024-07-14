@@ -54,7 +54,7 @@ const ProjectsView: ColPageFC = (props) => {
                 {item.codeType === "Other" ? null : (
                   <span
                     className={twMerge(
-                      "inline-block rounded-sm border-1 border-zinc-200/20 bg-zinc-400/10 px-1 py-0.5 align-middle text-[0.6rem] leading-none text-zinc-600 transition-colors delay-1000 duration-200",
+                      "inline-block rounded-sm border-1 border-zinc-200/20 bg-zinc-400/10 px-1 py-0.5 align-middle text-[0.6rem] leading-none text-zinc-600 transition-colors duration-200",
                       `[:has([data-type="developerTool"]:hover)>[data-type="developerTool"]_&]:bg-amber-100`,
                       `[:has([data-type="chromeExtension"]:hover)>[data-type="chromeExtension"]_&]:bg-amber-100`,
                       `[:has([data-type="webApp"]:hover)>[data-type="webApp"]_&]:bg-amber-100`,

@@ -112,7 +112,31 @@ const page: React.FC<unknown> = () => {
             incoming mail and the worst I can do is say no.{" "}
             <ContactButton href="mailto:hello+33517a@szhu.me" />
           </p>
-          <p className="text-xs text-zinc-400">Last updated 2024-05-13.</p>
+
+          <p className="text-xs">
+            You can also contact me via{" "}
+            <a
+              className="text-zinc-400"
+              target="_blank"
+              href="https://twitter.com/sfzhu"
+              rel="noreferrer"
+            >
+              Twitter
+            </a>{" "}
+            or{" "}
+            <a
+              className="text-zinc-400"
+              target="_blank"
+              href="https://linkedin.com/in/interestinglythere"
+              rel="noreferrer"
+            >
+              LinkedIn
+            </a>
+            . (Make sure you send a message or leave a note so I know why you’re
+            reaching out; otherwise I will decline the connection.)
+          </p>
+
+          <p className="text-xs text-zinc-400">Last updated 2024-06-21.</p>
         </div>
       </details>
     </>

@@ -1,6 +1,15 @@
 import { ProjectItem } from "./ProjectsData.generate";
 
 const ProjectsData: Record<string, ProjectItem> = {
+  "project-benotified": {
+    name: "BeNotified",
+    id: "benotified",
+    github: "https://github.com/szhu/BeNotified",
+    when: "February 2024",
+    codeType: "Chrome Extension",
+    usability: "Ready",
+    description: "BeReal desktop notifications.",
+  },
   "project-git-uncommitted": {
     name: "git-uncommitted",
     id: "git-uncommitted",
@@ -9,7 +18,7 @@ const ProjectsData: Record<string, ProjectItem> = {
     codeType: "Developer Tool",
     usability: "Ready",
     description:
-      "A simpler alternative to git stash that works per branch and never results in merge conflicts.",
+      "A simpler, per-branch alternative to git-stash that never causes merge conflicts.",
   },
   "project-clipvideo": {
     name: "ClipVideo",
@@ -20,12 +29,12 @@ const ProjectsData: Record<string, ProjectItem> = {
     codeType: "Web App",
     usability: "Ready",
     description:
-      "Chop a long video any number of small pieces, adjacent or overlapping or not, extremely precisely.",
+      "Chop a long video any number of small pieces, adjacent or overlapping or not, extremely precisely. Works offline.",
   },
   "project-b": {
     name: "???",
     id: "b",
-    when: "June 2023",
+    when: "June 2023–",
     codeType: "Web App",
     usability: "Ready",
     description: "????",
@@ -57,7 +66,8 @@ const ProjectsData: Record<string, ProjectItem> = {
     when: "July 2022",
     codeType: "Developer Tool",
     usability: "Ready",
-    description: "Quickly batch-apply preferences, for onboarding and more.",
+    description:
+      "Quickly batch apply preferences and run provisioning scripts, for onboarding and more.",
   },
   "project-pagefreeze": {
     name: "Pagefreeze",
@@ -125,7 +135,7 @@ const ProjectsData: Record<string, ProjectItem> = {
     codeType: "Chrome Extension",
     usability: "Defunct",
     description:
-      "Prevent distractions on Facebook by replacing every work with “bork”. (Unavailable due to trademark takedown.)",
+      "Prevent distractions on Facebook by replacing every word with “bork”. (Unavailable due to trademark takedown.)",
   },
   "project-3030": {
     name: "%%30%30",
@@ -136,7 +146,7 @@ const ProjectsData: Record<string, ProjectItem> = {
     codeType: "Web App",
     usability: "Ready",
     description:
-      "A unique game that exploits the 2015 “link that crashes Chrome” bug.",
+      "A unique 0-day game that exploited the “link that crashes Chrome” bug from 2015.",
   },
   "project-batchrename": {
     name: "batchrename",
@@ -146,7 +156,7 @@ const ProjectsData: Record<string, ProjectItem> = {
     codeType: "Developer Tool",
     usability: "Ready",
     description:
-      "Batch-rename files using your editor, taking advantage of text-editing shortcuts you’re already familiar with.",
+      "Batch-rename files from your text editor, so that you can take advantage of text-editing shortcuts you’re already familiar with.",
   },
   "project-s60": {
     name: "S60 apps",
@@ -156,7 +166,7 @@ const ProjectsData: Record<string, ProjectItem> = {
     codeType: "Other",
     usability: "Defunct",
     description:
-      "Developer tools and other app explorations on the Symbian S60 mobile OS.",
+      "A text editor, file browser, and some apps and explorations on the Symbian S60 mobile OS.",
   },
 };
 

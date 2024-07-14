@@ -12,6 +12,15 @@
         "runOn": "folderOpen"
       },
       "type": "shell"
+    },
+    {
+      "command": "gitup",
+      "label": "Open in GitUp",
+      "presentation": {
+        "panel": "shared",
+        "reveal": "silent"
+      },
+      "type": "shell"
     }
   ],
   "version": "2.0.0"
