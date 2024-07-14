@@ -74,7 +74,10 @@ const TwoColPage: React.FC<{
       >
         <div />
         <Left
-          marginClassName="mx-auto sm:mx-4"
+          marginClassName={twMerge(
+            "mx-auto sm:mx-4",
+            Disabled && "[outline:1px_solid_red]",
+          )}
           align={
             props.layout === "left-wide"
               ? "left sm:right xl:center"
@@ -95,7 +98,10 @@ const TwoColPage: React.FC<{
           {props.page}
         </Left>
         <Right
-          marginClassName="mx-auto sm:mx-4"
+          marginClassName={twMerge(
+            "mx-auto sm:mx-4",
+            Disabled && "[outline:1px_solid_red]",
+          )}
           align="left"
           className={twMerge(
             "max-w-full px-[3vw] py-6 xs:px-4",
