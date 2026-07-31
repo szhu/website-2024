@@ -1,3 +1,4 @@
+/// <reference types="wicg-file-system-access" />
 "use client";
 
 import mimeTypes from "mime-types";
@@ -6,18 +7,19 @@ let saveDirectory: FileSystemDirectoryHandle | undefined;
 
 export async function setSaveDirectory(testThatSubdirectoryExists: string) {
   while (saveDirectory == null) {
+    let picked: FileSystemDirectoryHandle;
     try {
-      saveDirectory = await window.showDirectoryPicker({ mode: "readwrite" });
+      picked = await showDirectoryPicker({ mode: "readwrite" });
     } catch {
       return false;
     }
 
     // Make sure we've selected the correct directory.
     try {
-      await saveDirectory.getDirectoryHandle(testThatSubdirectoryExists);
+      await picked.getDirectoryHandle(testThatSubdirectoryExists);
+      saveDirectory = picked;
     } catch {
       window.alert("Incorrect folder selected. Try again.");
-      saveDirectory = undefined;
     }
   }
 
