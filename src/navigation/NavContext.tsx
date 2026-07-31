@@ -30,6 +30,15 @@ function useNavState(): NavState {
           return {};
       }
 
+    case "-playground":
+      switch (parts.shift()) {
+        case undefined:
+          return { itemId: "-playground" };
+
+        default:
+          return {};
+      }
+
     case "projects":
     case "work": {
       const itemId = parts.shift();

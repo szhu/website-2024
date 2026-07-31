@@ -4,7 +4,6 @@ import { twMerge } from "tailwind-merge";
 import Disabled from "../debug/Disabled";
 import RootData from "../listings/RootData";
 import SiteTitle from "../listings/SiteTitle";
-import areLinksToPages from "../listings/areLinksToPages";
 import { useNavContext } from "./NavContext";
 
 function getCategory(categoryId: keyof typeof RootData | undefined) {
@@ -27,12 +26,12 @@ const TopBar: React.FC<unknown> = () => {
   return (
     <div
       className={twMerge(
-        !areLinksToPages && "sm:hidden",
-        "shrink-0 overflow-x-auto border-zinc-300 px-4 py-2 pt-3 backdrop-blur-sm dark:border-zinc-700",
         "sticky bottom-0 z-10 sm:bottom-auto sm:top-0 hover-supported:top-0",
-        "bg-zinc-100/70 sm:bg-white/80 hover-supported:bg-white/80 dark:bg-zinc-800/70 sm:dark:bg-black/80 hover-supported:dark:bg-black/80",
+        "shrink-0 overflow-x-auto border-zinc-400/20 px-4 py-2 pt-3 backdrop-blur-sm",
+        "bg-zinc-100/70 hover-supported:bg-zinc-100/80 dark:bg-zinc-800/70 hover-supported:dark:bg-black/80",
+        "sm:bg-transparent sm:hover-supported:bg-transparent sm:dark:bg-transparent sm:hover-supported:dark:bg-transparent",
         "border-t-1 sm:border-b-1 sm:border-t-0 hover-supported:border-b-1 hover-supported:border-t-0",
-        "transition-[opacity,visibility] duration-200 sm:delay-1000 sm:duration-1000",
+        "transition-[opacity,visibility] duration-200 sm:delay-300 sm:duration-1000",
         nav.isRoot && "invisible opacity-0",
         isOneLevelIn && "sm:invisible sm:opacity-0",
       )}

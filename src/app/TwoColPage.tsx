@@ -32,7 +32,7 @@ const TwoColPagesById = {
 const TwoColPage: React.FC<{
   left: keyof typeof TwoColPagesById;
   right: keyof typeof TwoColPagesById;
-  layout: "even" | "left-wide" | "left-only";
+  layout: "even" | "left-wide" | "right-wide" | "left-only";
   page: React.ReactNode;
   sm: "left" | "right";
 }> = (props) => {
@@ -50,8 +50,20 @@ const TwoColPage: React.FC<{
     TwoColTransitionDuration,
   );
 
+  const scaleDownRightCol = twMerge(
+    isTransitioningLayout && "transition-[transform,width]",
+    "origin-left ease-linear",
+    TwoColTransitionClassName,
+    props.layout === "left-wide" ? "w-[111%] scale-90" : "scale-100",
+  );
+
   return (
-    <div className="flex min-h-dvh shrink-0 flex-col-reverse text-black sm:h-dvh sm:flex-col sm:overflow-y-hidden hover-supported:flex-col dark:text-zinc-200">
+    <div
+      className={twMerge(
+        "flex min-h-dvh shrink-0 flex-col-reverse text-black sm:h-dvh sm:flex-col sm:overflow-y-hidden hover-supported:flex-col dark:text-zinc-200",
+        "backdrop-blur-3xl",
+      )}
+    >
       <header className="contents">
         <TopBar />
       </header>
@@ -68,6 +80,8 @@ const TwoColPage: React.FC<{
 
           props.layout === "left-wide" &&
             "sm:grid-cols-[0,1fr,calc(200px+var(--wo-sm)*0.3)] xl:grid-cols-[calc(200px+var(--wo-xl)*0.3),1fr,calc(200px+var(--wo-xl)*0.3)]",
+          props.layout === "right-wide" &&
+            "sm:grid-cols-[0,1fr,calc(50%+200px)]",
           props.layout === "even" && "sm:grid-cols-[0,1fr,50%]",
           props.layout === "left-only" && "sm:grid-cols-[0,1fr,50%]",
         )}
@@ -78,11 +92,12 @@ const TwoColPage: React.FC<{
           align={
             props.layout === "left-wide"
               ? "left sm:right xl:center"
-              : props.layout === "even"
+              : props.layout === "even" || props.layout === "right-wide"
                 ? "left sm:right"
                 : "center"
           }
           className={twMerge(
+            Disabled && "[outline:1px_dashed_red]",
             "max-w-full px-[3vw] py-6 xs:px-4",
             isTransitioningLayout &&
               twMerge(TwoColTransitionClassName, "transition-[transform]"),
@@ -98,9 +113,11 @@ const TwoColPage: React.FC<{
           marginClassName="mx-auto sm:mx-4"
           align="left"
           className={twMerge(
+            Disabled && "[outline:1px_dashed_red]",
             "max-w-full px-[3vw] py-6 xs:px-4",
             props.sm === "right" ? alwaysShownClassName : smShownClassName,
             didRightChange ? "animate-fade-500" : "",
+            scaleDownRightCol,
           )}
           side="right"
         >

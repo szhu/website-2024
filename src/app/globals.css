@@ -2,15 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  display: contents;
-}
-
-html {
-  background-color: white;
-  touch-action: manipulation;
-
+:root {
   /* Width over each breakpoint: */
   --wo-2xs: calc(100vw - 320px);
   --wo-xs: calc(100vw - 480px);
@@ -27,13 +19,14 @@ html {
   --wf-xl: clamp(0, calc((100vw - 1024px) / (1280px - 1024px)), 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-    background-color: black;
-  }
-}
-
 :not(body) > :has(> div > h1.next-error-h1) {
   height: auto !important;
+}
+
+.my-p {
+  @apply my-6;
+}
+
+.w-p {
+  @apply w-[450px] max-w-full 2xs:px-2;
 }

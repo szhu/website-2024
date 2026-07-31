@@ -35,33 +35,44 @@ const RootView: ColPageFC = (props) => {
       }}
     >
       <div className="grow" />
-      <div
-        className={twMerge(
-          "flex w-fit max-w-full flex-col gap-2",
-          isTransitioningLayout &&
-            twMerge(TwoColTransitionClassName, "transition-[padding]"),
+      <div className="flex w-full">
+        <div className={twMerge("grow")} />
 
-          // Make content appear horizontally centered.
-          props.align === "center" && "pr-[min(5rem,6vw)]",
+        <div
+          className={twMerge(
+            isTransitioningLayout &&
+              twMerge(TwoColTransitionClassName, "transition-[width]"),
 
-          // Push content slightly to the right when in two-column layout.
-          props.align === "left sm:right" && "pl-[min(5rem,6vw)]",
-        )}
-      >
-        <Link href="/" className="text-2xl font-bold">
-          {SiteTitle}
-        </Link>
-        <div className="text-lg">
-          {Object.entries(RootData).map(([id, category]) => (
-            <PageLink
-              key={id}
-              className="block rounded-md py-1"
-              href={"/" + id}
-            >
-              {category.name}
-            </PageLink>
-          ))}
+            // Push content slightly to the right when in two-column layout.
+            props.align === "left sm:right" ? "w-[calc(100%-200px)]" : "w-0",
+          )}
+        />
+
+        <div
+          className={twMerge(
+            "flex w-fit max-w-full flex-col gap-2",
+
+            // Make content appear horizontally centered.
+            "pr-[min(5rem,6vw)]",
+          )}
+        >
+          <Link href="/" className="text-2xl font-bold">
+            {SiteTitle}
+          </Link>
+          <div className="text-lg">
+            {Object.entries(RootData).map(([id, category]) => (
+              <PageLink
+                key={id}
+                className="block rounded-md py-1"
+                href={"/" + id}
+              >
+                {category.name}
+              </PageLink>
+            ))}
+          </div>
         </div>
+
+        <div className="grow" />
       </div>
       <div className="grow" />
     </div>

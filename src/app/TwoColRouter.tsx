@@ -53,7 +53,15 @@ const TwoColRouter: React.FC<{
       />
     ) : nav.itemId === "about" ? (
       <TwoColPage //
-        layout="even"
+        layout="right-wide"
+        left="root"
+        right="item"
+        sm="right"
+        page={props.children}
+      />
+    ) : nav.itemId === "-playground" ? (
+      <TwoColPage //
+        layout="right-wide"
         left="root"
         right="item"
         sm="right"
