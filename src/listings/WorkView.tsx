@@ -4,7 +4,7 @@ import { ColPageFC } from "../app/TwoColPage";
 import Disabled from "../debug/Disabled";
 import PageLink, { LinkStyle } from "../navigation/PageLink";
 import WorkData from "./WorkData";
-import areLinksToPages from "./areLinksToPages";
+import hasItemPage from "./hasItemPage";
 
 const WorkView: ColPageFC = (props) => {
   const router = useRouter();
@@ -37,24 +37,18 @@ const WorkView: ColPageFC = (props) => {
             </>
           );
 
-          return areLinksToPages ? (
+          return (
             <PageLink
               key={key}
-              href={"/work/" + item.id}
+              href={
+                hasItemPage(item.id)
+                  ? "/work/" + item.id
+                  : "https://" + item.domain
+              }
               className={twMerge(LinkStyle, "block rounded-md")}
             >
               {inner}
             </PageLink>
-          ) : (
-            <a
-              key={key}
-              target="_blank"
-              rel="noopener noreferrer"
-              href={"https://" + item.domain}
-              className={twMerge(LinkStyle, "block rounded-md")}
-            >
-              {inner}
-            </a>
           );
         })}
       </div>

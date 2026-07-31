@@ -3,8 +3,9 @@ import { useRouter } from "next/navigation";
 import Balancer from "react-wrap-balancer";
 import { twMerge } from "tailwind-merge";
 import { ColPageFC } from "../app/TwoColPage";
-import { LinkStyle } from "../navigation/PageLink";
+import PageLink, { LinkStyle } from "../navigation/PageLink";
 import ProjectsData from "./ProjectsData";
+import hasItemPage from "./hasItemPage";
 
 const ProjectsView: ColPageFC = (props) => {
   const router = useRouter();
@@ -31,11 +32,13 @@ const ProjectsView: ColPageFC = (props) => {
           const typeSlug = _.camelCase(item.codeType);
 
           return (
-            <a
+            <PageLink
               key={key}
-              target="_blank"
-              rel="noopener noreferrer"
-              href={item.url ?? item.github}
+              href={
+                hasItemPage(item.id)
+                  ? "/projects/" + item.id
+                  : item.url ?? item.github ?? ""
+              }
               data-type={typeSlug}
               className={twMerge(LinkStyle, "group block rounded-md")}
             >
@@ -68,7 +71,7 @@ const ProjectsView: ColPageFC = (props) => {
               <div className="text-xs">
                 <Balancer>{item.description}</Balancer>
               </div>
-            </a>
+            </PageLink>
           );
         })}
       </div>
