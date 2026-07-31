@@ -9,7 +9,7 @@ const TwoColRouter: React.FC<{
   children?: React.ReactNode;
 }> = (props) => {
   const pathname = usePathname();
-  const previousPathnameRef = useRef<string>();
+  const previousPathnameRef = useRef<string>(undefined);
   const nav = useNavContext();
 
   // Hack! Sometimes it seems like Next.js is unintentionally removing the
