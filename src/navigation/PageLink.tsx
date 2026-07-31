@@ -3,13 +3,24 @@ import { usePathname } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
 export const LinkStyle =
-  "transition-opacity duration-200 hover-supported:hover:opacity-60";
+  "cursor-pointer transition-opacity duration-300 hover-supported:hover:opacity-60 active:duration-100 active:opacity-30 hover-supported:active:opacity-30";
+
+function isAbsoluteUrl(href: unknown): boolean {
+  if (typeof href !== "string") return false;
+  try {
+    new URL(href);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 const PageLink: React.FC<Partial<React.ComponentProps<typeof Link>>> = (
   props,
 ) => {
   const pathname = usePathname();
-  const isCurrent = pathname === props.href;
+  const isExternal = isAbsoluteUrl(props.href);
+  const isCurrent = !isExternal && pathname === props.href;
 
   const className = twMerge(
     !isCurrent && props.href != null && LinkStyle,
@@ -19,10 +30,20 @@ const PageLink: React.FC<Partial<React.ComponentProps<typeof Link>>> = (
       : "",
   );
 
+  const externalAttributes = isExternal
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
+
   return props.href == null ? (
     <span {...props} className={className} />
   ) : (
-    <Link {...props} href={props.href} className={className} data-page-link />
+    <Link
+      {...externalAttributes}
+      {...props}
+      href={props.href}
+      className={className}
+      data-page-link
+    />
   );
 };
 
