@@ -38,9 +38,14 @@ function emptyStringToUndefined<T extends string>(value: T | undefined) {
 }
 
 const NonEmptyStringCell = z.string().min(1);
-const OptionalStringCell = z.string().transform(emptyStringToUndefined);
-const OptionalUrlCell = //
-  z.union([z.literal(""), z.string().url()]).transform(emptyStringToUndefined);
+const OptionalStringCell = z
+  .string()
+  .transform(emptyStringToUndefined)
+  .optional();
+const OptionalUrlCell = z
+  .union([z.literal(""), z.url()])
+  .transform(emptyStringToUndefined)
+  .optional();
 const ProjectItemSchema = z.object({
   name: NonEmptyStringCell,
   id: NonEmptyStringCell,
@@ -57,10 +62,12 @@ const ProjectItemSchema = z.object({
       "Web App",
       "",
     ])
-    .transform(emptyStringToUndefined),
+    .transform(emptyStringToUndefined)
+    .optional(),
   usability: z
     .enum(["Defunct", "Ready", "WIP", ""])
-    .transform(emptyStringToUndefined),
+    .transform(emptyStringToUndefined)
+    .optional(),
   description: OptionalStringCell,
 });
 
