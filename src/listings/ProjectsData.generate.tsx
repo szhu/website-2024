@@ -24,7 +24,12 @@ S60 apps	s60	Defunct		https://github.com/szhu/s60-sandbox	2008/02/11	2006–2008
 
 const parseCsvResults = papaparse.parse(csv, {
   header: true,
-  transformHeader: (header) => _.camelCase(header.toLowerCase()),
+  // papaparse >=5.5 calls transformHeader twice per column; make the transform
+  // idempotent by short-circuiting when the input is already camelCased.
+  transformHeader: (header) =>
+    /^[a-z][\dA-Za-z]*$/.test(header)
+      ? header
+      : _.camelCase(header.toLowerCase()),
   skipEmptyLines: true,
 });
 
