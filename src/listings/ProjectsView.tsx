@@ -37,7 +37,7 @@ const ProjectsView: ColPageFC = (props) => {
               href={
                 hasItemPage(item.id)
                   ? "/projects/" + item.id
-                  : item.url ?? item.github ?? ""
+                  : (item.url ?? item.github ?? "")
               }
               data-type={typeSlug}
               className={twMerge(LinkStyle, "group block rounded-md")}
